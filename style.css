@@ -58,6 +58,12 @@ h1, h2, h3 {
     width: 100%;
     z-index: 1000;
     border-bottom: 1px solid #e0e0e0;
+    transition: transform 0.4s ease-in-out; /* Added transition for smooth hiding */
+}
+
+/* New class to hide the header */
+.main-header.header-hidden {
+    transform: translateY(-100%);
 }
 
 .main-header .container {
