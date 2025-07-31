@@ -42,4 +42,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // --- Hide Header on Scroll Down ---
+    let lastScrollTop = 0;
+    const header = document.querySelector('.main-header');
+    const headerHeight = header.offsetHeight;
+
+    window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTop > lastScrollTop && scrollTop > headerHeight) {
+            // Scrolling Down
+            header.classList.add('header-hidden');
+        } else {
+            // Scrolling Up
+            header.classList.remove('header-hidden');
+        }
+        
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+    });
+
 });
