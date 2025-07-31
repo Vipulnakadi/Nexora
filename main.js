@@ -389,9 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartCount();
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-
-    // --- Hide Header on Scroll Down ---
+  // --- Hide Header on Scroll Down ---
     let lastScrollTop = 0;
     const header = document.querySelector('.main-header');
     const headerHeight = header.offsetHeight;
