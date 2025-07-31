@@ -107,7 +107,7 @@ h1, h2, h3 {
 /* --- Hero Section --- */
 .hero-section {
     height: 100vh;
-    background: linear-gradient(rgba(10, 46, 54, 0.7), rgba(10, 46, 54, 0.7)), url('') no-repeat center center/cover;
+    background: linear-gradient(rgba(10, 46, 54, 0.7), rgba(10, 46, 54, 0.7)), url('https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=2070') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -301,8 +301,72 @@ h1, h2, h3 {
 }
 
 /* --- Responsive Design --- */
+@media (max-width: 992px) {
+    .product-showcase {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+        padding: 40px 30px;
+    }
+    .product-info h2 {
+        font-size: 2.5rem;
+    }
+}
+
 @media (max-width: 768px) {
-    .main-header .container { flex-direction: column; gap: 15px; }
-    .hero-content h1 { font-size: 2.5rem; }
-    .product-showcase { flex-direction: column; text-align: center; }
+    .main-header .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .main-nav ul {
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .hero-section {
+        height: 80vh;
+    }
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+    .section-title {
+        font-size: 2.2rem;
+    }
+    .section-subtitle {
+        font-size: 1rem;
+        margin-bottom: 40px;
+    }
+    .about-section, .products-section {
+        padding: 60px 0;
+    }
+    .policies-container {
+        padding: 30px 20px;
+    }
+    .tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .tab-button {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    .main-nav ul {
+        gap: 15px;
+    }
+    .leader-card {
+        width: 100%;
+        max-width: 280px;
+    }
+    .product-info h2 {
+        font-size: 2rem;
+    }
 }
