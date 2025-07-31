@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeXoRa Ittar - Luxurious Natural Perfumes</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="style2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    
+    <div id="preloader">
+        <img src="assets/images/logo.jpg" alt="NeXoRa Ittar Loading..." class="logo-loader">
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo-link">
+                <img src="assets/images/logo.jpg" alt="NeXoRa Ittar Logo" class="logo">
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="#products">Ittar Collection</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="animate-on-scroll">The Essence of Purity. The Soul of Luxury.</h1>
+                <p class="animate-on-scroll">Discover handcrafted ittar perfumes, distilled from nature's finest botanicals.</p>
+                <a href="#finder" class="cta-button animate-on-scroll">Find Your Signature Scent</a>
+            </div>
+        </section>
+
+        <section id="bestsellers" class="bestsellers-section container">
+            <h2 class="section-title animate-on-scroll">Our Best Sellers</h2>
+            <div id="bestsellers-grid" class="product-grid animate-on-scroll">
+                </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container about-container">
+                <div class="about-image animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1557173445-58564a27521a?q=80&w=1887" alt="Natural ingredients for ittar">
+                </div>
+                <div class="about-text animate-on-scroll">
+                    <h2 class="section-title">Rooted in Tradition</h2>
+                    <p>NeXoRa was born from a passion for the ancient art of perfumery. We blend timeless traditions with a modern aesthetic, creating pure, alcohol-free ittar that connects you to the natural world. Our commitment is to sustainability, quality, and the authentic expression of self through scent.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="product-section container">
+            <h2 class="section-title animate-on-scroll">The Ittar Collection</h2>
+            <div id="product-grid" class="product-grid animate-on-scroll">
+                </div>
+        </section>
+
+        <section id="finder" class="scent-finder-section">
+            <div class="container animate-on-scroll">
+                <h2 class="section-title">Discover Your Perfect Ittar</h2>
+                <p class="finder-subtitle">Answer a few questions to find the scent that truly represents you.</p>
+                <form id="scent-finder-form" class="finder-form">
+                    <div class="form-step">
+                        <label>1. Which best describes your personality?</label>
+                        <select name="personality" required>
+                            <option value="">Select Personality...</option>
+                            <option value="bold">Bold & Confident</option>
+                            <option value="calm">Calm & Serene</option>
+                            <option value="energetic">Energetic & Playful</option>
+                            <option value="mysterious">Elegant & Mysterious</option>
+                        </select>
+                    </div>
+                    <div class="form-step">
+                        <label>2. What scent family do you gravitate towards?</label>
+                        <select name="scent_family" required>
+                            <option value="">Select Scent Family...</option>
+                            <option value="woody">Woody & Earthy</option>
+                            <option value="floral">Floral & Sweet</option>
+                            <option value="citrus">Citrus & Fresh</option>
+                            <option value="spicy">Spicy & Warm</option>
+                        </select>
+                    </div>
+                    <div class="form-step">
+                        <label>3. What mood do you want to evoke?</label>
+                        <select name="mood" required>
+                            <option value="">Select Mood...</option>
+                            <option value="relaxing">Relaxing & Grounding</option>
+                            <option value="uplifting">Uplifting & Joyful</option>
+                            <option value="romantic">Romantic & Alluring</option>
+                            <option value="sophisticated">Sophisticated & Powerful</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="cta-button">Reveal My Scent</button>
+                </form>
+                <div id="finder-result" class="finder-result" style="display: none;">
+                    </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section container">
+            <h2 class="section-title animate-on-scroll">Get In Touch</h2>
+             <p class="contact-text animate-on-scroll">Have questions? We'd love to hear from you. Reach out to us for collaborations, inquiries, or just to share your scent story.</p>
+            <p class="contact-email animate-on-scroll">Email us at: <a href="mailto:care@nexoraittar.com">care@nexoraittar.com</a></p>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <img src="assets/images/logo.jpg" alt="NeXoRa Ittar Logo" class="footer-logo">
+                <div class="footer-links">
+                    <a href="#about">About Us</a>
+                    <a href="#products">Shop</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 NeXoRa Ittar. All rights reserved. <span id="admin-trigger" title="Admin Panel">◆</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Admin Login</h2>
+            <form id="admin-login-form">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+                <p id="login-error" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="admin-panel" class="admin-panel" style="display: none;">
+         <div class="container">
+            <h2>Admin Dashboard</h2>
+            <button id="logout-button">Logout</button>
+            <h3>Customer Orders</h3>
+            <button id="download-excel">Download Orders as Excel (.xlsx)</button>
+            <div class="table-container">
+                <table id="orders-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Products</th>
+                            <th>Total</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-tbody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="main.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
