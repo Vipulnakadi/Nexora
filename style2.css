@@ -94,6 +94,14 @@ img {
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid rgba(0,0,0,0.05);
+
+     transition: transform 0.4s ease-in-out; 
+}
+
+/* ADD THIS ENTIRE NEW BLOCK OF CODE */
+.ittar-header.header-hidden {
+    transform: translateY(-100%);
+}
 }
 
 .main-header .container {
