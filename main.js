@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Hide Header on Scroll Down ---
     let lastScrollTop = 0;
-    const header = document.querySelector('.ittar-header');
+    const header = document.querySelector('.main-header');
     const headerHeight = header.offsetHeight;
 
     window.addEventListener('scroll', function() {
