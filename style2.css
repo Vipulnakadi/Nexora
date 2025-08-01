@@ -32,7 +32,7 @@ body {
 }
 
 /* Style for the navigation bar */
-.nav-bar {
+.main-nav {
     position: fixed; /* Stick to the top of the viewport */
     top: 0;
     left: 0;
@@ -48,7 +48,7 @@ body {
 }
 
 /* Style for the links inside the nav bar */
-.nav-bar a {
+.main-nav a {
     color: white;
     margin: 0 15px;
     text-decoration: none;
@@ -56,7 +56,7 @@ body {
 }
 
 /* This class is added/removed with JavaScript to hide/show the nav bar */
-.nav-bar--hidden {
+.main-nav--hidden {
     transform: translateY(-120%); /* Move the nav bar up, out of the viewport */
 }
 .container {
