@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Select the navigation bar element
-const navBar = document.querySelector('.nav-bar');
+const navBar = document.querySelector('.main-nav');
 
 // Store the last scroll position
 let lastScrollY = window.scrollY;
@@ -399,10 +399,10 @@ let lastScrollY = window.scrollY;
 window.addEventListener('scroll', () => {
     // If the user scrolls down, hide the navbar
     if (lastScrollY < window.scrollY) {
-        navBar.classList.add('nav-bar--hidden');
+        navBar.classList.add('main-nav--hidden');
     } else {
     // If the user scrolls up, show the navbar
-        navBar.classList.remove('nav-bar--hidden');
+        navBar.classList.remove('main-nav--hidden');
     }
 
     // Update the last scroll position
