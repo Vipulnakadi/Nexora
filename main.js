@@ -389,4 +389,24 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartCount();
 });
 
+// Select the navigation bar element
+const navBar = document.querySelector('.nav-bar');
+
+// Store the last scroll position
+let lastScrollY = window.scrollY;
+
+// Listen for scroll events
+window.addEventListener('scroll', () => {
+    // If the user scrolls down, hide the navbar
+    if (lastScrollY < window.scrollY) {
+        navBar.classList.add('nav-bar--hidden');
+    } else {
+    // If the user scrolls up, show the navbar
+        navBar.classList.remove('nav-bar--hidden');
+    }
+
+    // Update the last scroll position
+    lastScrollY = window.scrollY;
+});
+
   // --- Hide Header on Scroll Down 
