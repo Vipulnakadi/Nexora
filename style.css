@@ -113,7 +113,7 @@ h1, h2, h3 {
 /* --- Hero Section --- */
 .hero-section {
     height: 100vh;
-    background: linear-gradient(rgba(10, 46, 54, 0.7), rgba(10, 46, 54, 0.7)), url('https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=2070') no-repeat center center/cover;
+    background: linear-gradient(rgba(10, 46, 54, 0.7), rgba(10, 46, 54, 0.7)), url('') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -376,3 +376,4 @@ h1, h2, h3 {
         font-size: 2rem;
     }
 }
+
