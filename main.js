@@ -261,88 +261,29 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     // --- Checkout Form Logic ---
-   // --- UPDATED Checkout Form Logic ---
-function setupCheckoutForm(totalAmount) {
-    const checkoutForm = document.getElementById('checkout-form');
-    if (!checkoutForm) return;
+ function setupCheckoutForm(totalAmount) {
+        const checkoutForm = document.getElementById('checkout-form');
+        if (!checkoutForm) return;
 
-    // !!! IMPORTANT: PASTE YOUR GOOGLE APPS SCRIPT URL HERE !!!
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFRBJWmzYuQFKG3xnZ976kPW-PszDW2iJB0G20RucNJQJ4iyD1DBkBmC4h95wSzdS7/exec';
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-    checkoutForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const submitButton = checkoutForm.querySelector('button[type="submit"]');
-        submitButton.disabled = true;
-        submitButton.textContent = 'Placing Order...';
+            const customerDetails = {
+                name: document.getElementById('customer-name').value,
+                email: document.getElementById('customer-email').value,
+                phone: document.getElementById('customer-phone').value,
+                address: document.getElementById('customer-address').value,
+            };
 
-        // Prepare the data for Google Sheets
-        const productsSummary = cart.map(item => {
-            const product = getProductById(item.id);
-            return `${product.name} (x${item.quantity})`;
-        }).join(', ');
-        
-        const dataForSheet = {
-            orderID: `NEX${Date.now()}`,
-            customerName: document.getElementById('customer-name').value,
-            email: document.getElementById('customer-email').value,
-            phone: document.getElementById('customer-phone').value,
-            address: document.getElementById('customer-address').value,
-            products: productsSummary,
-            totalAmount: totalAmount
-        };
-
-        // Send the data using the Fetch API
-        fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: JSON.stringify(dataForSheet),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.result === 'success') {
-                // Save order to localStorage (optional, but good for admin panel)
-                let orders = JSON.parse(localStorage.getItem('nexoraOrders')) || [];
-                const newOrder = {
-                    id: dataForSheet.orderID,
-                    customer: { 
-                        name: dataForSheet.customerName, 
-                        email: dataForSheet.email, 
-                        phone: dataForSheet.phone, 
-                        address: dataForSheet.address 
-                    },
-                    products: cart.map(item => ({...getProductById(item.id), quantity: item.quantity })),
-                    total: totalAmount,
-                    date: new Date().toISOString()
+            const orderedProducts = cart.map(item => {
+                const product = getProductById(item.id);
+                return {
+                    name: product.name,
+                    quantity: item.quantity,
+                    price: product.price
                 };
-                orders.push(newOrder);
-                localStorage.setItem('nexoraOrders', JSON.stringify(orders));
-
-                // Clear cart and show success
-                cart = [];
-                saveCart();
-                updateCartCount();
-                
-                document.getElementById('order-success-modal').style.display = 'block';
-            } else {
-                // Handle error
-                alert('There was an error placing your order. Please try again.');
-                console.error(data.error);
-            }
-        })
-        .catch(error => {
-            alert('A network error occurred. Please check your connection and try again.');
-            console.error('Error:', error);
-        })
-        .finally(() => {
-            // Re-enable the button
-            submitButton.disabled = false;
-            submitButton.textContent = 'Place Order';
-        });
-    });
-}
+            });
+            
             
             const newOrder = {
                 id: `NEX${Date.now()}`,
@@ -470,5 +411,6 @@ window.addEventListener('scroll', () => {
 });
 
   // --- Hide Header on Scroll Down 
+
 
 
