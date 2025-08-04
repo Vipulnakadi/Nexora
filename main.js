@@ -57,7 +57,24 @@ document.addEventListener('DOMContentLoaded', () => {
             loginForm.reset();
         });
     }
+    // --- Hamburger Menu Functionality ---
+    const hamburgerButton = document.getElementById('hamburger-button');
+    const navLinks = document.getElementById('nav-links');
 
+    if (hamburgerButton && navLinks) {
+        hamburgerButton.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+        });
+
+        // Close menu when a link inside it is clicked
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                if (navLinks.classList.contains('nav-active')) {
+                    navLinks.classList.remove('nav-active');
+                }
+            }
+        });
+    }
 
     
     
@@ -462,6 +479,5 @@ window.addEventListener('scroll', () => {
 });
 
   // --- Hide Header on Scroll Down 
-
 
 
