@@ -182,7 +182,27 @@ img {
     background-color: var(--primary-color);
     color: white;
 }
-/* New Login Button Style */
+/* --- Hamburger Menu Styles --- */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+}
+
+.hamburger-line {
+    width: 30px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+
 
 
 .header-actions {
