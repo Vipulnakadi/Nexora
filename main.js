@@ -57,21 +57,26 @@ document.addEventListener('DOMContentLoaded', () => {
             loginForm.reset();
         });
     }
-    // --- Hamburger Menu Functionality ---
+     // --- Hamburger Menu Functionality ---
     const hamburgerButton = document.getElementById('hamburger-button');
     const navLinks = document.getElementById('nav-links');
 
+    // Ensure both the button and the navigation links element exist before adding listeners
     if (hamburgerButton && navLinks) {
+        
+        // Listen for a click on the hamburger button
         hamburgerButton.addEventListener('click', () => {
+            // Toggle the .nav-active class on the navigation links list.
+            // This class makes the menu visible via the CSS.
             navLinks.classList.toggle('nav-active');
         });
 
-        // Close menu when a link inside it is clicked
-        navLinks.addEventListener('click', (e) => {
-            if (e.target.tagName === 'A') {
-                if (navLinks.classList.contains('nav-active')) {
-                    navLinks.classList.remove('nav-active');
-                }
+        // Add a listener to the whole navigation menu to handle clicks on links
+        navLinks.addEventListener('click', (event) => {
+            // Check if the clicked item is an anchor tag (<a>)
+            if (event.target.tagName === 'A') {
+                // If a link is clicked, remove the .nav-active class to close the menu
+                navLinks.classList.remove('nav-active');
             }
         });
     }
@@ -479,6 +484,7 @@ window.addEventListener('scroll', () => {
 });
 
   // --- Hide Header on Scroll Down 
+
 
 
 
