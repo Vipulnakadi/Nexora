@@ -10,6 +10,57 @@ window.onload = function() {
 
     // The rest of your main.js code goes here...
 document.addEventListener('DOMContentLoaded', () => {
+      // --- Login Modal Functionality ---
+    const loginButton = document.getElementById('login-button');
+    const loginModal = document.getElementById('login-modal');
+    const closeButton = document.querySelector('.modal .close-button');
+    const loginForm = document.getElementById('customer-login-form');
+
+    if (loginButton && loginModal && closeButton && loginForm) {
+        // Open modal when login button is clicked
+        loginButton.onclick = function() {
+            loginModal.style.display = 'block';
+        }
+
+        // Close modal when the 'x' is clicked
+        closeButton.onclick = function() {
+            loginModal.style.display = 'none';
+        }
+
+        // Close modal when user clicks outside of the modal content
+        window.onclick = function(event) {
+            if (event.target == loginModal) {
+                loginModal.style.display = 'none';
+            }
+        }
+
+        // Handle form submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the form from actually submitting
+            
+            const name = loginForm.querySelector('input[name="name"]').value;
+            const email = loginForm.querySelector('input[name="email"]').value;
+            const contact = loginForm.querySelector('input[name="contact"]').value;
+
+            console.log('Customer Details Submitted:');
+            console.log('Name:', name);
+            console.log('Email:', email);
+            console.log('Contact:', contact);
+            
+            // Close the modal
+            loginModal.style.display = 'none';
+
+            // Optional: Show a success message
+            alert('Thank you, ' + name + '! Your details have been submitted.');
+
+            // Clear the form for the next time
+            loginForm.reset();
+        });
+    }
+
+
+    
+    
 
     // --- Product Data ---
     const products = [
