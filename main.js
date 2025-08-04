@@ -262,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cartContainer.innerHTML = `
                 <p style="text-align:center; font-size:1.2rem;">Your cart is empty.</p>
                 <div style="text-align:center; margin-top:20px;">
-                    <a href="index.html#products" class="cta-button">Start Shopping</a>
+                    <a href="index2.html#products" class="cta-button">Start Shopping</a>
                 </div>
             `;
             checkoutSection.style.display = 'none';
@@ -479,5 +479,6 @@ window.addEventListener('scroll', () => {
 });
 
   // --- Hide Header on Scroll Down 
+
 
 
