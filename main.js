@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
             body += `\nTOTAL AMOUNT: ₹${newOrder.total.toLocaleString('en-IN')}\n`;
             body += `Payment Method: Cash on Delivery`;
             
-            window.location.href = `mailto:vipulnakadi14@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = `mailto:comp.nexora@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
             // Clear cart and show success
             cart = [];
@@ -484,6 +484,7 @@ window.addEventListener('scroll', () => {
 });
 
   // --- Hide Header on Scroll Down 
+
 
 
 
