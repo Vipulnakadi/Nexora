@@ -2,88 +2,32 @@
 window.onload = function() {
     const preloader = document.getElementById('preloader');
     if (preloader) {
-        // Add the 'hidden' class to trigger the fade-out animation
         preloader.classList.add('hidden');
     }
 };
 
-
-    // The rest of your main.js code goes here...
 document.addEventListener('DOMContentLoaded', () => {
-      // --- Login Modal Functionality ---
-    const loginButton = document.getElementById('login-button');
-    const loginModal = document.getElementById('login-modal');
-    const closeButton = document.querySelector('.modal .close-button');
-    const loginForm = document.getElementById('customer-login-form');
 
-    if (loginButton && loginModal && closeButton && loginForm) {
-        // Open modal when login button is clicked
-        loginButton.onclick = function() {
-            loginModal.style.display = 'block';
-        }
-
-        // Close modal when the 'x' is clicked
-        closeButton.onclick = function() {
-            loginModal.style.display = 'none';
-        }
-
-        // Close modal when user clicks outside of the modal content
-        window.onclick = function(event) {
-            if (event.target == loginModal) {
-                loginModal.style.display = 'none';
-            }
-        }
-
-        // Handle form submission
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent the form from actually submitting
-            
-            const name = loginForm.querySelector('input[name="name"]').value;
-            const email = loginForm.querySelector('input[name="email"]').value;
-            const contact = loginForm.querySelector('input[name="contact"]').value;
-
-            console.log('Customer Details Submitted:');
-            console.log('Name:', name);
-            console.log('Email:', email);
-            console.log('Contact:', contact);
-            
-            // Close the modal
-            loginModal.style.display = 'none';
-
-            // Optional: Show a success message
-            alert('Thank you, ' + name + '! Your details have been submitted.');
-
-            // Clear the form for the next time
-            loginForm.reset();
-        });
-    }
-     // --- Hamburger Menu Functionality ---
+    // --- Hamburger Menu Functionality ---
     const hamburgerButton = document.getElementById('hamburger-button');
     const navLinks = document.getElementById('nav-links');
 
-    // Ensure both the button and the navigation links element exist before adding listeners
     if (hamburgerButton && navLinks) {
-        
-        // Listen for a click on the hamburger button
         hamburgerButton.addEventListener('click', () => {
-            // Toggle the .nav-active class on the navigation links list.
-            // This class makes the menu visible via the CSS.
+            // Toggle the .nav-active class to show/hide the menu.
             navLinks.classList.toggle('nav-active');
         });
 
-        // Add a listener to the whole navigation menu to handle clicks on links
+        // Listen for clicks on the navigation links themselves
         navLinks.addEventListener('click', (event) => {
-            // Check if the clicked item is an anchor tag (<a>)
+            // If a link (<a> tag) is clicked inside the menu
             if (event.target.tagName === 'A') {
-                // If a link is clicked, remove the .nav-active class to close the menu
+                // Remove the .nav-active class to close the menu
                 navLinks.classList.remove('nav-active');
             }
         });
     }
-
     
-    
-
     // --- Product Data ---
     const products = [
         { id: 1, name: 'Sultan\'s Oudh', price: 120, img: 'assets/images/product1.jpg', description: 'A regal and powerful scent with deep notes of aged Agarwood (Oudh), layered with rich sandalwood and warm amber. For the bold and confident.', ingredients: 'Agarwood, Sandalwood, Amber, Saffron', tags: ['bold', 'woody', 'sophisticated'], bestseller: true, rating: 4.9 },
@@ -129,9 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('scent-finder-form')) {
         setupScentFinder();
     }
-    if (document.querySelector('.cart-page')) {
-        renderCartPage();
-    }
     
     // --- Render All Products ---
     function renderProducts() {
@@ -141,12 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="product-card">
                 <a href="javascript:void(0);" onclick="viewProduct(${product.id})" class="product-link">
                     <div class="product-image-container">
-                        <img src="${product.img}" alt="${product.name}" class="product-image">
+                        <img src="${product.img}" alt="${product.name}" class="product-image" onerror="this.onerror=null;this.src='https://placehold.co/600x600/f5f0e6/3d3d3d?text=${product.name}';">
                     </div>
                 </a>
                 <div class="product-info">
-                    <h3 class="product-name">${product.name}</h3>
-                    <p class="product-price">₹${product.price.toLocaleString('en-IN')}</p>
+                    <div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-price">₹${product.price.toLocaleString('en-IN')}</p>
+                    </div>
                     <button class="cta-button" onclick="addToCart(${product.id})">Add to Cart</button>
                 </div>
             </div>
@@ -161,59 +104,47 @@ document.addEventListener('DOMContentLoaded', () => {
              <div class="product-card">
                 <a href="javascript:void(0);" onclick="viewProduct(${product.id})" class="product-link">
                     <div class="product-image-container">
-                        <img src="${product.img}" alt="${product.name}" class="product-image">
+                        <img src="${product.img}" alt="${product.name}" class="product-image" onerror="this.onerror=null;this.src='https://placehold.co/600x600/f5f0e6/3d3d3d?text=${product.name}';">
                     </div>
                 </a>
                 <div class="product-info">
-                    <h3 class="product-name">${product.name}</h3>
-                    <div class="product-rating">
-                        <span>${'★'.repeat(Math.floor(product.rating))}</span>${product.rating % 1 !== 0 ? '☆' : ''} (${product.rating})
+                    <div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-rating">
+                            <span>${'★'.repeat(Math.floor(product.rating))}</span>${'☆'.repeat(5 - Math.floor(product.rating))} (${product.rating})
+                        </div>
+                        <p class="product-price">₹${product.price.toLocaleString('en-IN')}</p>
                     </div>
-                    <p class="product-price">₹${product.price.toLocaleString('en-IN')}</p>
                     <button class="cta-button" onclick="addToCart(${product.id})">Add to Cart</button>
                 </div>
             </div>
         `).join('');
     }
     
-    // --- View Product (Simulated Product Page) ---
+    // --- View Product (Simulated Product Page via Modal) ---
     window.viewProduct = (id) => {
-        localStorage.setItem('viewingProductId', id);
-        // This would navigate to product-detail.html in a multi-page setup.
-        // For this demo, we'll simulate by storing the ID and you would have a separate product-detail.html file
-        // that reads this ID and displays the product.
-        // Let's create a simple modal for demonstration instead of a full page.
         const product = getProductById(id);
         const modalHTML = `
-            <div id="product-detail-modal" class="modal" style="display:block;">
-                <div class="modal-content" style="max-width: 800px; text-align: left; display: flex; gap: 30px;">
-                    <span class="close-button" onclick="document.getElementById('product-detail-modal').remove()">&times;</span>
-                    <div style="flex:1;">
-                        <img src="${product.img}" style="width:100%; border-radius:5px;">
-                    </div>
-                    <div style="flex:1;">
-                        <h2 style="font-family:var(--header-font); color:var(--primary-color)">${product.name}</h2>
-                        <p style="font-size: 1.5rem; color: var(--secondary-color); font-weight:700; margin-bottom:15px;">₹${product.price.toLocaleString('en-IN')}</p>
-                        <p style="margin-bottom:15px;">${product.description}</p>
-                        <p style="margin-bottom:20px;"><strong>Ingredients:</strong> ${product.ingredients}</p>
-                        <button class="cta-button" onclick="addToCart(${product.id}); document.getElementById('product-detail-modal').remove();">Add to Cart</button>
-                        <button class="cta-button" style="background:var(--primary-color); margin-left:10px;" onclick="findSimilar('${product.tags[1]}')">Find Similar</button>
+            <div id="product-detail-modal" class="modal" style="display:flex; align-items:center; justify-content:center;">
+                <div class="modal-content" style="max-width: 800px; text-align: left; display: flex; flex-direction: column; gap: 20px; margin: 1rem;">
+                     <span class="close-button" onclick="document.getElementById('product-detail-modal').remove()">&times;</span>
+                    <div style="display: flex; gap: 30px; flex-direction: column; md:flex-direction: row;">
+                        <div style="flex:1;">
+                            <img src="${product.img}" style="width:100%; border-radius:5px;" onerror="this.onerror=null;this.src='https://placehold.co/600x600/f5f0e6/3d3d3d?text=${product.name}';">
+                        </div>
+                        <div style="flex:1;">
+                            <h2 style="font-family:var(--header-font); color:var(--primary-color)">${product.name}</h2>
+                            <p style="font-size: 1.5rem; color: var(--secondary-color); font-weight:700; margin-bottom:15px;">₹${product.price.toLocaleString('en-IN')}</p>
+                            <p style="margin-bottom:15px;">${product.description}</p>
+                            <p style="margin-bottom:20px;"><strong>Ingredients:</strong> ${product.ingredients}</p>
+                            <button class="cta-button" onclick="addToCart(${product.id}); document.getElementById('product-detail-modal').remove();">Add to Cart</button>
+                        </div>
                     </div>
                 </div>
             </div>
         `;
         document.body.insertAdjacentHTML('beforeend', modalHTML);
     };
-    
-    // --- Find Similar ---
-    window.findSimilar = (scentFamily) => {
-        document.getElementById('product-detail-modal')?.remove();
-        const scentFinderSection = document.getElementById('finder');
-        scentFinderSection.scrollIntoView({ behavior: 'smooth' });
-        // Pre-fill the form
-        document.querySelector(`#scent-finder-form select[name="scent_family"]`).value = scentFamily;
-    };
-
 
     // --- Add to Cart Logic ---
     window.addToCart = (productId, quantity = 1) => {
@@ -225,17 +156,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         saveCart();
         updateCartCount();
-        // Show confirmation
+        
         const product = getProductById(productId);
+        showConfirmation(`Added <strong>${product.name}</strong> to cart!`);
+    };
+
+    function showConfirmation(message) {
+        // Remove any existing confirmation
+        const oldConfirmation = document.querySelector('.cart-confirmation');
+        if(oldConfirmation) oldConfirmation.remove();
+
         const confirmation = document.createElement('div');
         confirmation.className = 'cart-confirmation';
-        confirmation.innerHTML = `Added <strong>${product.name}</strong> to cart!`;
+        confirmation.innerHTML = message;
         document.body.appendChild(confirmation);
-        setTimeout(() => {
-            confirmation.remove();
-        }, 3000);
         
-        // Add a temporary CSS for confirmation
+        // Add animation style if not present
         if (!document.getElementById('cart-confirm-style')) {
             const style = document.createElement('style');
             style.id = 'cart-confirm-style';
@@ -243,162 +179,26 @@ document.addEventListener('DOMContentLoaded', () => {
             .cart-confirmation {
                 position: fixed;
                 bottom: 20px;
-                right: 20px;
+                left: 50%;
+                transform: translateX(-50%);
                 background-color: var(--primary-color);
                 color: #fff;
                 padding: 15px 25px;
                 border-radius: 5px;
                 z-index: 2000;
                 box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-                animation: slideInUp 0.5s ease;
+                animation: slideInUp 0.5s ease, fadeOut 0.5s ease 2.5s;
             }
-            @keyframes slideInUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+            @keyframes slideInUp { from { transform: translate(-50%, 100%); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+            @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
             `;
             document.head.appendChild(style);
         }
-    };
 
-    // --- Render Cart Page ---
-    function renderCartPage() {
-        const cartContainer = document.getElementById('cart-container');
-        const checkoutSection = document.getElementById('checkout-section');
-        
-        if (cart.length === 0) {
-            cartContainer.innerHTML = `
-                <p style="text-align:center; font-size:1.2rem;">Your cart is empty.</p>
-                <div style="text-align:center; margin-top:20px;">
-                    <a href="index2.html#products" class="cta-button">Start Shopping</a>
-                </div>
-            `;
-            checkoutSection.style.display = 'none';
-            return;
-        }
-
-        let subtotal = 0;
-        const cartItemsHTML = cart.map(item => {
-            const product = getProductById(item.id);
-            subtotal += product.price * item.quantity;
-            return `
-                <div class="cart-item" data-id="${item.id}">
-                    <img src="${product.img}" alt="${product.name}" class="cart-item-img">
-                    <div class="cart-item-details">
-                        <h3 class="cart-item-name">${product.name}</h3>
-                        <p class="cart-item-price">₹${product.price.toLocaleString('en-IN')}</p>
-                    </div>
-                    <div class="cart-item-quantity">
-                        <label>Qty:</label>
-                        <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)">
-                    </div>
-                    <div class="cart-item-total">
-                        <strong>₹${(product.price * item.quantity).toLocaleString('en-IN')}</strong>
-                    </div>
-                    <button class="cart-item-remove" onclick="removeFromCart(${item.id})">&times;</button>
-                </div>
-            `;
-        }).join('');
-        
-        cartContainer.innerHTML = cartItemsHTML + `
-            <div class="cart-summary">
-                <p class="cart-total">Subtotal: <strong>₹${subtotal.toLocaleString('en-IN')}</strong></p>
-                <button id="proceed-to-checkout" class="cta-button">Proceed to Checkout</button>
-            </div>
-        `;
-
-        document.getElementById('proceed-to-checkout').addEventListener('click', () => {
-            checkoutSection.style.display = 'block';
-            checkoutSection.scrollIntoView({ behavior: 'smooth' });
-        });
-        
-        setupCheckoutForm(subtotal);
+        setTimeout(() => {
+            confirmation.remove();
+        }, 3000);
     }
-    
-    // --- Cart Page Actions ---
-    window.updateQuantity = (productId, newQuantity) => {
-        const item = cart.find(item => item.id === productId);
-        if (item) {
-            item.quantity = parseInt(newQuantity);
-            if (item.quantity < 1) {
-                item.quantity = 1;
-            }
-            saveCart();
-            renderCartPage();
-            updateCartCount();
-        }
-    };
-    
-    window.removeFromCart = (productId) => {
-        cart = cart.filter(item => item.id !== productId);
-        saveCart();
-        renderCartPage();
-        updateCartCount();
-    };
-    
-    // --- Checkout Form Logic ---
- function setupCheckoutForm(totalAmount) {
-        const checkoutForm = document.getElementById('checkout-form');
-        if (!checkoutForm) return;
-
-        checkoutForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const customerDetails = {
-                name: document.getElementById('customer-name').value,
-                email: document.getElementById('customer-email').value,
-                phone: document.getElementById('customer-phone').value,
-                address: document.getElementById('customer-address').value,
-            };
-
-            const orderedProducts = cart.map(item => {
-                const product = getProductById(item.id);
-                return {
-                    name: product.name,
-                    quantity: item.quantity,
-                    price: product.price
-                };
-            });
-            
-            
-            const newOrder = {
-                id: `NEX${Date.now()}`,
-                customer: customerDetails,
-                products: orderedProducts,
-                total: totalAmount,
-                date: new Date().toISOString()
-            };
-            
-            // Save order to localStorage (simulating a database)
-            let orders = JSON.parse(localStorage.getItem('nexoraOrders')) || [];
-            orders.push(newOrder);
-            localStorage.setItem('nexoraOrders', JSON.stringify(orders));
-            
-            // Prepare mailto link for email notification
-            const subject = `New Ittar Order: ${newOrder.id}`;
-            let body = `New Order Received\n\n`;
-            body += `Order ID: ${newOrder.id}\n`;
-            body += `Date: ${new Date(newOrder.date).toLocaleString()}\n\n`;
-            body += `CUSTOMER DETAILS:\n`;
-            body += `Name: ${newOrder.customer.name}\n`;
-            body += `Email: ${newOrder.customer.email}\n`;
-            body += `Phone: ${newOrder.customer.phone}\n`;
-            body += `Address: ${newOrder.customer.address}\n\n`;
-            body += `ORDERED PRODUCTS:\n`;
-            newOrder.products.forEach(p => {
-                body += `- ${p.name} (x${p.quantity}) - ₹${(p.price * p.quantity).toLocaleString('en-IN')}\n`;
-            });
-            body += `\nTOTAL AMOUNT: ₹${newOrder.total.toLocaleString('en-IN')}\n`;
-            body += `Payment Method: Cash on Delivery`;
-            
-            window.location.href = `mailto:comp.nexora@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-            // Clear cart and show success
-            cart = [];
-            saveCart();
-            updateCartCount();
-            
-            document.getElementById('order-success-modal').style.display = 'block';
-        });
-    }
-
 
     // --- Scent Finder Logic ---
     function setupScentFinder() {
@@ -411,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const scentFamily = form.elements.scent_family.value;
             const mood = form.elements.mood.value;
             
-            // Simple matching logic
             let bestMatch = null;
             let maxScore = -1;
 
@@ -430,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (bestMatch) {
                 resultDiv.innerHTML = `
                     <div class="finder-result-img">
-                         <img src="${bestMatch.img}" alt="${bestMatch.name}">
+                         <img src="${bestMatch.img}" alt="${bestMatch.name}" onerror="this.onerror=null;this.src='https://placehold.co/150x150/f5f0e6/3d3d3d?text=${bestMatch.name}';">
                     </div>
                     <div class="finder-result-text">
                         <p>Your perfect match is...</p>
@@ -459,33 +258,20 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollObserver.observe(el);
     });
 
+    // --- Hide Header on Scroll ---
+    const navBar = document.querySelector('.main-header');
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+        if (lastScrollY < window.scrollY && window.scrollY > 100) {
+            navBar.classList.add('header-hidden');
+        } else {
+            navBar.classList.remove('header-hidden');
+        }
+        lastScrollY = window.scrollY;
+    });
+
     // --- Initial Load ---
     updateCartCount();
 });
-
-// Select the navigation bar element
-const navBar = document.querySelector('.main-header');
-
-// Store the last scroll position
-let lastScrollY = window.scrollY;
-
-// Listen for scroll events
-window.addEventListener('scroll', () => {
-    // If the user scrolls down, hide the navbar
-    if (lastScrollY < window.scrollY) {
-        navBar.classList.add('header-hidden');
-    } else {
-    // If the user scrolls up, show the navbar
-        navBar.classList.remove('header-hidden');
-    }
-
-    // Update the last scroll position
-    lastScrollY = window.scrollY;
-});
-
-  // --- Hide Header on Scroll Down 
-
-
-
-
 
