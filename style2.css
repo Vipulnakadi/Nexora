@@ -17,6 +17,10 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: var(--body-font);
     color: var(--text-color);
@@ -25,40 +29,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Basic styling for the body to enable scrolling */
-body {
-    margin: 0;
-    font-family: sans-serif;
-}
-
-/* Style for the navigation bar */
-.main-header {
-    position: fixed; /* Stick to the top of the viewport */
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #2c3e50;
-    color: white;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transform: translateY(0); /* Start in the default position */
-    transition: transform 0.3s ease-in-out; /* Animate the transform property */
-    z-index: 100;
-    text-align: center;
-}
-
-/* Style for the links inside the nav bar */
-.main-header a {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-    font-size: 1.1em;
-}
-
-/* This class is added/removed with JavaScript to hide/show the nav bar */
-.main-header.header-hidden {
-    transform: translateY(-120%); /* Move the nav bar up, out of the viewport */
-}
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -111,6 +81,7 @@ img {
     border: 2px solid transparent;
     border-radius: 5px;
     transition: all 0.4s ease;
+    cursor: pointer;
 }
 
 .cta-button:hover {
@@ -118,18 +89,24 @@ img {
     color: var(--secondary-color);
     border-color: var(--secondary-color);
 }
-/* Find this existing rule in your css/ittar.css file */
+
+/* --- Header --- */
 .main-header {
-    background-color: rgba(245, 240, 230, 0.8);
+    background-color: rgba(245, 240, 230, 0.85);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 15px 0;
     position: sticky;
     top: 0;
+    width: 100%;
     z-index: 1000;
     border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.3s ease-in-out;
 }
 
-
+.main-header.header-hidden {
+    transform: translateY(-100%);
+}
 
 .main-header .container {
     display: flex;
@@ -144,7 +121,9 @@ img {
 .main-nav ul {
     list-style: none;
     display: flex;
+    align-items: center;
     gap: 30px;
+    white-space: nowrap; /* This prevents the navigation items from wrapping to the next line */
 }
 
 .main-nav a {
@@ -155,6 +134,7 @@ img {
     text-transform: uppercase;
     letter-spacing: 1px;
     position: relative;
+    padding: 5px 0;
 }
 
 .main-nav a::after {
@@ -167,14 +147,15 @@ img {
     background-color: var(--secondary-color);
     transition: width 0.3s ease;
 }
-/* 
+
 .main-nav a:hover::after,
 .main-nav a.active::after {
-    width: 100%; */
+    width: 100%;
+}
 
 .main-nav .back-link {
     border: 1px solid var(--primary-color);
-    padding: 8px 10px;
+    padding: 8px 12px;
     border-radius: 20px;
     transition: all 0.3s;
 }
@@ -182,9 +163,10 @@ img {
     background-color: var(--primary-color);
     color: white;
 }
-/* --- Hamburger Menu Styles --- */
+
+/* --- Hamburger Menu Styles (Initially hidden on desktop) --- */
 .hamburger {
-    display: none;
+    display: none; /* Hidden by default on larger screens */
     flex-direction: column;
     justify-content: space-around;
     width: 30px;
@@ -193,7 +175,7 @@ img {
     border: none;
     cursor: pointer;
     padding: 0;
-    z-index: 10;
+    z-index: 1010;
 }
 
 .hamburger-line {
@@ -203,14 +185,14 @@ img {
     border-radius: 5px;
 }
 
-
-
 .header-actions {
     position: relative;
 }
 
 .cart-icon svg {
     fill: var(--text-color);
+    width: 28px;
+    height: 28px;
 }
 
 #cart-count {
@@ -226,6 +208,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
 }
 
 
@@ -240,6 +223,7 @@ img {
     justify-content: center;
     text-align: center;
     color: #fff;
+    padding: 0 20px;
 }
 
 .hero-content h1 {
@@ -274,6 +258,8 @@ img {
     text-align: center;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-card:hover {
@@ -300,6 +286,10 @@ img {
 
 .product-info {
     padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allows the info section to grow */
+    justify-content: space-between; /* Pushes button to the bottom */
 }
 
 .product-name {
@@ -324,6 +314,7 @@ img {
 .product-card .cta-button {
     padding: 10px 20px;
     font-size: 0.9rem;
+    margin-top: auto; /* Pushes button to the bottom of the flex container */
 }
 
 /* --- About Section --- */
@@ -437,83 +428,58 @@ img {
     font-size: 1.2rem;
 }
 
-  /* 2. Main Footer Styles */
-        .footer {
-            background-color: #2c3e50; /* A dark, professional blue-slate */
-            padding: 2.5rem 1.5rem;
-            color: #bdc3c7; /* A soft, light gray for text */
-            font-size: 0.9rem;
-        }
+/* --- Footer --- */
+.footer {
+    background-color: #2c3e50;
+    padding: 2.5rem 1.5rem;
+    color: #bdc3c7;
+    font-size: 0.9rem;
+}
 
-        .footer__container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+.footer__container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-        /* 3. Footer Content Layout */
-        .footer__content {
-            display: flex;
-            flex-direction: column; /* Stack on mobile by default */
-            align-items: center;    /* Center items on mobile */
-            justify-content: space-between;
-            gap: 1.5rem;
-        }
+.footer__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    text-align: center;
+}
 
-        /* 4. Left and Right Sections */
-        .footer__left,
-        .footer__right {
-            display: flex;
-            flex-direction: column; /* Stack items within sections on mobile */
-            align-items: center;
-            gap: 1rem;
-        }
+.footer__left,
+.footer__right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
 
-        /* 5. Specific Element Styling */
-        .footer__copyright {
-            margin: 0;
-            text-align: center;
-        }
+.footer__legal-links,
+.footer__socials {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
 
-        .footer__legal-links,
-        .footer__socials {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem; /* Space between links */
-        }
+.footer__link {
+    color: #bdc3c7;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
 
-        .footer__link {
-            color: #bdc3c7;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
+.footer__link:hover {
+    color: #ffffff;
+}
 
-        .footer__link:hover {
-            color: #ffffff; /* Brighten link on hover */
-        }
-
-        .footer__icon {
-            width: 1.25rem;
-            height: 1.25rem;
-            fill: currentColor; /* Icon color will match the link color */
-        }
-
-        /* 6. Responsive Styles for Larger Screens */
-        @media (min-width: 768px) {
-            .footer__content {
-                flex-direction: row; /* Arrange side-by-side on larger screens */
-            }
-
-            .footer__left {
-                flex-direction: row; /* Arrange copyright and links in a row */
-                align-items: center;
-                gap: 1.5rem;
-            }
-            .footer__right {
-                flex-direction: row; /* This is default but good to be explicit */
-            }
-
-           
-        }
+.footer__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: currentColor;
+}
 
 /* --- Animations --- */
 .animate-on-scroll {
@@ -525,6 +491,129 @@ img {
 .animate-on-scroll.is-visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* --- Preloader Styles --- */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.75s ease, visibility 0.75s ease;
+}
+
+#preloader .logo-loader {
+    height: 70px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+#preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+
+/* --- Responsive Design --- */
+@media (min-width: 769px) {
+    .footer__content {
+        flex-direction: row;
+        text-align: left;
+    }
+
+    .footer__left {
+        flex-direction: row;
+        align-items: center;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .about-container {
+        flex-direction: column;
+    }
+}
+
+/* --- MOBILE NAVIGATION & RESPONSIVE STYLES (768px and below) --- */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+
+    /* Re-order header items for mobile layout */
+    .logo-link {
+        order: 1;
+        margin-right: auto; /* Pushes other items to the right */
+    }
+    .header-actions { /* Contains cart icon */
+        order: 2;
+    }
+    .main-nav { /* Contains hamburger */
+        order: 3;
+        margin-left: 16px; /* MODIFIED: Add space between cart and hamburger */
+    }
+
+    /* Show the hamburger button */
+    .hamburger {
+        display: flex;
+    }
+
+    /* Hide the original navigation ul */
+    .main-nav > ul {
+        display: none;
+    }
+
+    /* Re-style the nav links container for the slide-out menu */
+    #nav-links {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50vh; 
+        background-color: rgba(245, 240, 230, 0.95); 
+        backdrop-filter: blur(8px); 
+        -webkit-backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(0,0,0,0.1); 
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        z-index: 1005;
+        /* Hide menu off-screen by default */
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    /* This class is toggled by JS to show the menu */
+    #nav-links.nav-active {
+        transform: translateX(0);
+    }
+
+    /* Make links bigger for mobile */
+    #nav-links a {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .finder-result {
+        flex-direction: column;
+        text-align: center;
+    }
 }
 
 /* --- Modals --- */
@@ -742,75 +831,4 @@ img {
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-bottom: 20px;
-}
-
-/* --- Responsive Design --- */
-@media (max-width: 992px) {
-    .about-container {
-        flex-direction: column;
-    }
-}
-
-@media (max-width: 768px) {
-    .main-header .container {
-        flex-direction: column;
-        gap: 15px;
-    }
-    .main-nav ul {
-        gap: 20px;
-    }
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-    .hero-content p {
-        font-size: 1.1rem;
-    }
-    .footer-content {
-        flex-direction: column;
-        gap: 20px;
-    }
-    .finder-result {
-        flex-direction: column;
-        text-align: center;
-    }
-}/* --- Preloader Styles --- */
-#preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    background-color: var(--background-color); /* Uses the same beige background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.75s ease, visibility 0.75s ease;
-}
-
-#preloader .logo-loader {
-    height: 70px; /* Adjust size as needed */
-    animation: pulse 1.5s infinite ease-in-out;
-}
-
-/* This class will be added by JavaScript to hide the preloader */
-#preloader.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-/* The pulsing animation for the logo */
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.05);
-        opacity: 0.7;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
 }
