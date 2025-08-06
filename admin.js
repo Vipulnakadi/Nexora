@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${order.customer.email}</td>
                 <td>${order.customer.phone}</td>
                 <td>${order.customer.address}</td>
-                <td>${order.products.map(p => `${p.name} (x${p.quantity})`).join('<br>')}</td>
+                <td>${order.items.map(p => `${p.name} (x${p.quantity})`).join('<br>')}</td>
                 <td>₹${order.total.toLocaleString('en-IN')}</td>
                 <td>${new Date(order.date).toLocaleDateString()}</td>
             </tr>
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'Customer Email': order.customer.email,
             'Customer Phone': order.customer.phone,
             'Shipping Address': order.customer.address,
-            'Products': order.products.map(p => `${p.name} (Qty: ${p.quantity})`).join(', '),
+            'Products': order.items.map(p => `${p.name} (Qty: ${p.quantity})`).join(', '),
             'Total Amount (INR)': order.total
         }));
         
