@@ -28,19 +28,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // --- Product Data ---
+   // --- Product Data ---
     const products = [
-        { id: 1, name: 'Sultan\'s Oudh', price: 120, img: 'assets/images/product1.jpg', description: 'A regal and powerful scent with deep notes of aged Agarwood (Oudh), layered with rich sandalwood and warm amber. For the bold and confident.', ingredients: 'Agarwood, Sandalwood, Amber, Saffron', tags: ['bold', 'woody', 'sophisticated'], bestseller: true, rating: 4.9 },
-        { id: 2, name: 'Mystic Rose', price: 120, img: 'assets/images/product2.jpg', description: 'An enchanting elixir of pure Damask rose. Timeless, romantic, and deeply floral, with a soft touch of musk.', ingredients: 'Damask Rose Absolute, White Musk, Geranium', tags: ['calm', 'floral', 'romantic'], bestseller: true, rating: 4.8 },
-        { id: 3, name: 'Verdant Vetiver', price: 120, img: 'assets/images/product3.jpg', description: 'An earthy and grounding aroma of fresh Vetiver grass, balanced with a hint of citrusy bergamot and green oakmoss.', ingredients: 'Vetiver, Bergamot, Oakmoss', tags: ['calm', 'woody', 'relaxing'] },
-        { id: 4, name: 'Citrus Bloom', price: 120, img: 'assets/images/product4.jpg', description: 'A vibrant and energetic burst of Sicilian lemon and neroli, softened by a delicate whisper of jasmine.', ingredients: 'Neroli, Lemon, Jasmine, Green Tea', tags: ['energetic', 'citrus', 'uplifting'], bestseller: true, rating: 4.7 },
-        { id: 5, name: 'Santal Noir', price: 120, img: 'assets/images/product5.jpg', description: 'A dark, mysterious, and creamy blend of Indian sandalwood, spiced with cardamom and a hint of leather.', ingredients: 'Black Sandalwood, Cardamom, Leather', tags: ['mysterious', 'woody', 'sophisticated'] },
-        { id: 6, name: 'Golden Amber', price: 120, img: 'assets/images/product6.jpg', description: 'A warm, resinous, and inviting scent of golden amber, with sweet notes of vanilla and a touch of cinnamon.', ingredients: 'Amber Resin, Vanilla, Cinnamon', tags: ['calm', 'spicy', 'relaxing'] },
-        { id: 7, name: 'Jasmine Dew', price: 120, img: 'assets/images/product7.jpg', description: 'The intoxicating fragrance of night-blooming jasmine captured in a bottle. Fresh, floral, and utterly captivating.', ingredients: 'Jasmine Sambac, Green Tea, Ylang-Ylang', tags: ['energetic', 'floral', 'romantic'], bestseller: true, rating: 4.8 },
-        { id: 8, name: 'Emerald Musk', price: 120, img: 'assets/images/product8.jpg', description: 'A clean, sophisticated, and modern musk with green notes of galbanum and a powdery iris finish.', ingredients: 'White Musk, Galbanum, Iris Root', tags: ['mysterious', 'woody', 'sophisticated'] },
-        { id: 9, name: 'Spiced Earth', price: 120, img: 'assets/images/product9.jpg', description: 'A rich and earthy blend of Indonesian patchouli, warm clove, and a subtle note of sweet tobacco leaf.', ingredients: 'Patchouli, Clove Bud, Tobacco', tags: ['bold', 'spicy', 'relaxing'] },
-        { id: 10, name: 'Royal Saffron', price: 120, img: 'assets/images/product10.jpg', description: 'The epitome of luxury. Precious saffron threads blended with Bulgarian rose and a touch of rare Oudh.', ingredients: 'Kashmiri Saffron, Bulgarian Rose, Oudh', tags: ['bold', 'spicy', 'sophisticated'], bestseller: true, rating: 5.0 },
+        { id: 1, name: 'Purple Haze', price: 120, img: 'assets/images/product1.jpg', description: 'Unwind with the therapeutic aroma. Known for its calming properties, this natural fragrance helps to reduce stress and anxiety, making it the ideal scent for meditation, relaxation, or a peaceful evening.', ingredients: 'Lavender, Sandalwood, Saffron', tags: ['calm', 'floral', 'sophisticated'], bestseller: true, rating: 4.9 },
+        { id: 2, name: 'Valtren', price: 120, img: 'assets/images/product2.jpg', description: ' A powerful and dynamic fragrance that commands attention. Its captivating blend of exotic spices, rich woods, and hints of musk creates an aura of strength and confidence.', ingredients: 'Damask Rose Absolute, White Musk, Geranium', tags: ['bold', 'woody', 'energetic'], bestseller: true, rating: 4.8 },
+        { id: 3, name: 'Elvasia', price: 120, img: 'assets/images/product3.jpg', description: 'An earthy and grounding aroma of fresh Vetiver grass, balanced with a hint of citrusy bergamot and green oakmoss.', ingredients: 'Vetiver, Bergamot, Oakmoss', tags: ['calm', 'woody', 'relaxing'] },
+        { id: 4, name: 'Ozevia', price: 120, img: 'assets/images/product4.jpg', description: 'This invigorating fragrance is a vibrant blend of crisp citrus and cool marine notes, reminiscent of a refreshing sea breeze on a sun-drenched shore. It is a clean, masculine scent that is both uplifting and sophisticated.', ingredients: 'Neroli, Lemon, Jasmine, Green Tea', tags: ['energetic', 'citrus', 'uplifting'], bestseller: true, rating: 4.7 },
+        { id: 5, name: 'Ventara', price: 120, img: 'assets/images/product5.jpg', description: 'A dark, mysterious, and creamy blend of Indian sandalwood, spiced with cardamom and a hint of leather.', ingredients: 'Black Sandalwood, Cardamom, Leather', tags: ['mysterious', 'woody', 'sophisticated'] },
+        { id: 6, name: 'Dusk', price: 120, img: 'assets/images/product6.jpg', description: 'A warm, resinous, and inviting scent of golden amber, with sweet notes of vanilla and a touch of cinnamon.', ingredients: 'Amber Resin, Vanilla, Cinnamon', tags: ['calm', 'spicy', 'relaxing'] },
+        { id: 7, name: 'Roselune', price: 120, img: 'assets/images/product7.jpg', description: 'The intoxicating fragrance of night-blooming jasmine captured in a bottle. Fresh, floral, and utterly captivating.', ingredients: 'Jasmine Sambac, Green Tea, Ylang-Ylang', tags: ['energetic', 'floral', 'romantic'], bestseller: true, rating: 4.8 },
+        { id: 8, name: 'Nexus', price: 120, img: 'assets/images/product8.jpg', description: 'A clean, sophisticated, and modern musk with green notes of galbanum and a powdery iris finish.', ingredients: 'White Musk, Galbanum, Iris Root', tags: ['mysterious', 'woody', 'sophisticated'] },
+        { id: 9, name: 'White oud', price: 120, img: 'assets/images/product9.jpg', description: 'A rich and earthy blend of Indonesian patchouli, warm clove, and a subtle note of sweet tobacco leaf.', ingredients: 'Patchouli, Clove Bud, Tobacco', tags: ['bold', 'spicy', 'relaxing'] },
+        { id: 10, name: 'Citadel', price: 120, img: 'assets/images/product10.jpg', description: 'The epitome of luxury. Precious saffron threads blended with Bulgarian rose and a touch of rare Oudh.', ingredients: 'Kashmiri Saffron, Bulgarian Rose, Oudh', tags: ['bold', 'spicy', 'sophisticated'], bestseller: true, rating: 5.0 },
     ];
+
 
     // --- State Management using localStorage ---
     let cart = JSON.parse(localStorage.getItem('nexoraCart')) || [];
@@ -274,4 +275,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Initial Load ---
     updateCartCount();
 });
+
 
