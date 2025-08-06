@@ -27,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
-   // --- Product Data ---
+
+    // --- Product Data ---
     const products = [
         { id: 1, name: 'Purple Haze', price: 120, img: 'assets/images/product1.jpg', description: 'Unwind with the therapeutic aroma. Known for its calming properties, this natural fragrance helps to reduce stress and anxiety, making it the ideal scent for meditation, relaxation, or a peaceful evening.', ingredients: 'Lavender, Sandalwood, Saffron', tags: ['calm', 'floral', 'sophisticated'], bestseller: true, rating: 4.9 },
         { id: 2, name: 'Valtren', price: 120, img: 'assets/images/product2.jpg', description: ' A powerful and dynamic fragrance that commands attention. Its captivating blend of exotic spices, rich woods, and hints of musk creates an aura of strength and confidence.', ingredients: 'Damask Rose Absolute, White Musk, Geranium', tags: ['bold', 'woody', 'energetic'], bestseller: true, rating: 4.8 },
@@ -42,12 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 10, name: 'Citadel', price: 120, img: 'assets/images/product10.jpg', description: 'The epitome of luxury. Precious saffron threads blended with Bulgarian rose and a touch of rare Oudh.', ingredients: 'Kashmiri Saffron, Bulgarian Rose, Oudh', tags: ['bold', 'spicy', 'sophisticated'], bestseller: true, rating: 5.0 },
     ];
 
-
     // --- State Management using localStorage ---
     let cart = JSON.parse(localStorage.getItem('nexoraCart')) || [];
-    
+    let orders = JSON.parse(localStorage.getItem('nexoraOrders')) || [];
+
     const saveCart = () => {
         localStorage.setItem('nexoraCart', JSON.stringify(cart));
+    };
+
+    const saveOrder = (order) => {
+        orders.push(order);
+        localStorage.setItem('nexoraOrders', JSON.stringify(orders));
     };
 
     // --- Global Elements ---
@@ -74,7 +79,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('scent-finder-form')) {
         setupScentFinder();
     }
-    
+    // Check for the dedicated cart items container
+    if (document.getElementById('cart-items-container')) {
+        renderCart();
+    }
+    if (document.getElementById('checkout-form')) {
+        setupCheckoutForm();
+    }
+
     // --- Render All Products ---
     function renderProducts() {
         const productGrid = document.getElementById('product-grid');
@@ -96,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `).join('');
     }
-    
+
     // --- Render Best Sellers ---
     function renderBestsellers() {
         const bestsellersGrid = document.getElementById('bestsellers-grid');
@@ -121,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `).join('');
     }
-    
+
     // --- View Product (Simulated Product Page via Modal) ---
     window.viewProduct = (id) => {
         const product = getProductById(id);
@@ -157,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         saveCart();
         updateCartCount();
-        
+
         const product = getProductById(productId);
         showConfirmation(`Added <strong>${product.name}</strong> to cart!`);
     };
@@ -171,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         confirmation.className = 'cart-confirmation';
         confirmation.innerHTML = message;
         document.body.appendChild(confirmation);
-        
+
         // Add animation style if not present
         if (!document.getElementById('cart-confirm-style')) {
             const style = document.createElement('style');
@@ -205,13 +217,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupScentFinder() {
         const form = document.getElementById('scent-finder-form');
         const resultDiv = document.getElementById('finder-result');
-        
+
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             const personality = form.elements.personality.value;
             const scentFamily = form.elements.scent_family.value;
             const mood = form.elements.mood.value;
-            
+
             let bestMatch = null;
             let maxScore = -1;
 
@@ -226,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     bestMatch = product;
                 }
             });
-            
+
             if (bestMatch) {
                 resultDiv.innerHTML = `
                     <div class="finder-result-img">
@@ -272,8 +284,161 @@ document.addEventListener('DOMContentLoaded', () => {
         lastScrollY = window.scrollY;
     });
 
+    // --- CART PAGE LOGIC ---
+    function renderCart() {
+        // Corrected selector
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const checkoutSection = document.getElementById('checkout-section');
+
+        if (!cartItemsContainer || !checkoutSection) return;
+
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = `
+                <div style="text-align: center; padding: 50px;">
+                    <p style="font-size: 1.2rem;">Your cart is empty.</p>
+                    <a href="index2.html#products" class="cta-button" style="margin-top: 20px;">Shop Our Collection</a>
+                </div>
+            `;
+            checkoutSection.style.display = 'none';
+            return;
+        }
+
+        let total = 0;
+        let cartItemsHtml = '';
+
+        cart.forEach(item => {
+            const product = getProductById(item.id);
+            if (product) {
+                const subtotal = product.price * item.quantity;
+                total += subtotal;
+                cartItemsHtml += `
+                    <div class="cart-item">
+                        <img src="${product.img}" alt="${product.name}" class="cart-item-img" onerror="this.onerror=null;this.src='https://placehold.co/100x100/f5f0e6/3d3d3d?text=${product.name}';">
+                        <div class="cart-item-details">
+                            <h3 class="cart-item-name">${product.name}</h3>
+                            <p class="cart-item-price">₹${product.price.toLocaleString('en-IN')}</p>
+                        </div>
+                        <div class="cart-item-quantity">
+                            <input type="number" value="${item.quantity}" min="1" data-id="${product.id}" class="quantity-input">
+                        </div>
+                        <button class="cart-item-remove" data-id="${product.id}">&times;</button>
+                    </div>
+                `;
+            }
+        });
+
+        cartItemsContainer.innerHTML = `
+            <div>
+                ${cartItemsHtml}
+            </div>
+            <div class="cart-summary">
+                <p class="cart-total">Total: ₹${total.toLocaleString('en-IN')}</p>
+            </div>
+        `;
+
+        checkoutSection.style.display = 'block';
+
+        // Add event listeners for quantity and remove buttons
+        document.querySelectorAll('.quantity-input').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const productId = parseInt(e.target.dataset.id);
+                const newQuantity = parseInt(e.target.value);
+                updateCartQuantity(productId, newQuantity);
+            });
+        });
+
+        document.querySelectorAll('.cart-item-remove').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const productId = parseInt(e.target.dataset.id);
+                removeFromCart(productId);
+            });
+        });
+    }
+
+    function updateCartQuantity(productId, newQuantity) {
+        if (newQuantity <= 0) {
+            removeFromCart(productId);
+            return;
+        }
+        const item = cart.find(i => i.id === productId);
+        if (item) {
+            item.quantity = newQuantity;
+            saveCart();
+            updateCartCount();
+            renderCart(); // Re-render the cart to update totals
+        }
+    }
+
+    function removeFromCart(productId) {
+        cart = cart.filter(item => item.id !== productId);
+        saveCart();
+        updateCartCount();
+        renderCart(); // Re-render the cart
+    }
+
+    // --- CHECKOUT FORM LOGIC ---
+    function setupCheckoutForm() {
+        const checkoutForm = document.getElementById('checkout-form');
+        const modal = document.getElementById('order-success-modal');
+        const customerNameInput = document.getElementById('customer-name');
+        const customerEmailInput = document.getElementById('customer-email');
+        const customerPhoneInput = document.getElementById('customer-phone');
+        const customerAddressInput = document.getElementById('customer-address');
+
+        if (!checkoutForm) return;
+
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Create order object
+            const order = {
+                id: Date.now(),
+                customer: {
+                    name: customerNameInput.value,
+                    email: customerEmailInput.value,
+                    phone: customerPhoneInput.value,
+                    address: customerAddressInput.value,
+                },
+                items: cart.map(item => {
+                    const product = getProductById(item.id);
+                    return {
+                        name: product.name,
+                        quantity: item.quantity,
+                        price: product.price,
+                    };
+                }),
+                total: cart.reduce((sum, item) => sum + (getProductById(item.id).price * item.quantity), 0),
+                date: new Date().toISOString(),
+            };
+
+            saveOrder(order);
+
+            // // Prepare email draft
+            // const subject = encodeURIComponent('Order Confirmation from NeXoRa Ittar');
+            // let body = `Dear ${order.customer.name},\n\nThank you for your order! Here are the details:\n\n`;
+            // order.items.forEach(item => {
+            //     body += `${item.name} (x${item.quantity}) - ₹${(item.price * item.quantity).toLocaleString('en-IN')}\n`;
+            // });
+            // body += `\nTotal: ₹${order.total.toLocaleString('en-IN')}\n\n`;
+            // body += `We will contact you shortly to confirm your order and shipping details.\n\n`;
+            // body += `Best regards,\nNeXoRa Ittar Team`;
+
+            // const mailtoLink = `mailto:${order.customer.email}?subject=${subject}&body=${encodeURIComponent(body)}`;
+
+            // // Open email client with the pre-filled draft
+            // window.open(mailtoLink, '_blank');
+
+            // Clear the cart and local storage
+            cart = [];
+            saveCart();
+            updateCartCount();
+
+            // Show success modal
+            modal.style.display = 'flex';
+        });
+    }
+
+
     // --- Initial Load ---
     updateCartCount();
 });
-
-
