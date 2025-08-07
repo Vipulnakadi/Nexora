@@ -220,25 +220,47 @@ if (heroSlider) {
 window.viewProduct = (id) => {
     const product = getProductById(id);
     // Notice the "style" attribute is removed from the first div. This lets our CSS do the work.
-    const modalHTML = `
-        <div id="product-detail-modal" class="modal">
-            <div class="modal-content" style="max-width: 800px; text-align: left; display: flex; flex-direction: column; gap: 20px; margin: 1rem;">
-                 <span class="close-button" onclick="document.getElementById('product-detail-modal').remove()">&times;</span>
-                <div style="display: flex; gap: 30px; flex-direction: column; md:flex-direction: row;">
-                    <div style="flex:1;">
-                        <img src="${product.img}" style="width:100%; border-radius:5px;" onerror="this.onerror=null;this.src='https://placehold.co/600x600/f5f0e6/3d3d3d?text=${product.name}';">
-                    </div>
-                    <div style="flex:1;">
-                        <h2 style="font-family:var(--header-font); color:var(--primary-color)">${product.name}</h2>
-                        <p style="font-size: 1.5rem; color: var(--secondary-color); font-weight:700; margin-bottom:15px;">₹${product.price.toLocaleString('en-IN')}</p>
-                        <p style="margin-bottom:15px;">${product.description}</p>
-                        <p style="margin-bottom:20px;"><strong>Ingredients:</strong> ${product.ingredients}</p>
-                        <button class="cta-button" onclick="addToCart(${product.id}); document.getElementById('product-detail-modal').remove();">Add to Cart</button>
-                    </div>
+    // const modalHTML = `
+    //     <div id="product-detail-modal" class="modal">
+    //         <div class="modal-content" style="max-width: 800px; text-align: left; display: flex; flex-direction: column; gap: 20px; margin: 1rem;">
+    //              <span class="close-button" onclick="document.getElementById('product-detail-modal').remove()">&times;</span>
+    //             <div style="display: flex; gap: 30px; flex-direction: column; md:flex-direction: row;">
+    //                 <div style="flex:1;">
+    //                     <img src="${product.img}" style="width:100%; border-radius:5px;" onerror="this.onerror=null;this.src='https://placehold.co/600x600/f5f0e6/3d3d3d?text=${product.name}';">
+    //                 </div>
+    //                 <div style="flex:1;">
+    //                     <h2 style="font-family:var(--header-font); color:var(--primary-color)">${product.name}</h2>
+    //                     <p style="font-size: 1.5rem; color: var(--secondary-color); font-weight:700; margin-bottom:15px;">₹${product.price.toLocaleString('en-IN')}</p>
+    //                     <p style="margin-bottom:15px;">${product.description}</p>
+    //                     <p style="margin-bottom:20px;"><strong>Ingredients:</strong> ${product.ingredients}</p>
+    //                     <button class="cta-button" onclick="addToCart(${product.id}); document.getElementById('product-detail-modal').remove();">Add to Cart</button>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     </div>
+    // `;
+    // NEW UPDATED CODE
+const modalHTML = `
+    <div id="product-detail-modal" class="modal">
+        <div class="modal-content">
+             <span class="close-button" onclick="document.getElementById('product-detail-modal').remove()">&times;</span>
+            
+            <div class="product-detail-layout">
+                <div class="product-detail-image">
+                    <img src="${product.img}" alt="${product.name}" onerror="this.onerror=null;this.src='https://placehold.co/600x600/f5f0e6/3d3d3d?text=${product.name}';">
+                </div>
+                <div class="product-detail-info">
+                    <h2>${product.name}</h2>
+                    <p class="price">₹${product.price.toLocaleString('en-IN')}</p>
+                    <p class="description">${product.description}</p>
+                    <p class="ingredients"><strong>Ingredients:</strong> ${product.ingredients}</p>
+                    <button class="cta-button" onclick="addToCart(${product.id}); document.getElementById('product-detail-modal').remove();">Add to Cart</button>
                 </div>
             </div>
+
         </div>
-    `;
+    </div>
+`;
     const modalElement = document.createElement('div');
     modalElement.innerHTML = modalHTML;
     document.body.appendChild(modalElement);
@@ -529,5 +551,6 @@ window.viewProduct = (id) => {
     // --- Initial Load ---
     updateCartCount();
 });
+
 
 
