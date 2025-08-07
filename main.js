@@ -55,6 +55,63 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('nexoraOrders', JSON.stringify(orders));
     };
 
+
+// --- Hero Slider Logic ---
+const heroSlider = document.querySelector('.hero-slider');
+// Only run this code if the slider is on the current page
+if (heroSlider) { 
+    const slides = heroSlider.querySelectorAll('.slide');
+    const nextBtn = heroSlider.querySelector('#nextBtn');
+    const prevBtn = heroSlider.querySelector('#prevBtn');
+
+    let currentIndex = 0;
+    let slideInterval;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) {
+          slide.classList.add('active');
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
+    }
+
+    function startSlideShow() {
+      // Change slide every 5 seconds (5000ms)
+      slideInterval = setInterval(nextSlide, 5000); 
+    }
+
+    function resetSlideShow() {
+      clearInterval(slideInterval);
+      startSlideShow();
+    }
+
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      resetSlideShow();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      resetSlideShow();
+    });
+
+    // Initialize the slider
+    showSlide(currentIndex);
+    startSlideShow();
+}
+// --- END OF CODE TO PASTE ---
+
     // --- Global Elements ---
     const cartCountElement = document.getElementById('cart-count');
 
@@ -442,3 +499,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Initial Load ---
     updateCartCount();
 });
+
