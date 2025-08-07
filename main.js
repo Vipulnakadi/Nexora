@@ -55,63 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('nexoraOrders', JSON.stringify(orders));
     };
 
-
-// --- Hero Slider Logic ---
-const heroSlider = document.querySelector('.hero-slider');
-// Only run this code if the slider is on the current page
-if (heroSlider) { 
-    const slides = heroSlider.querySelectorAll('.slide');
-    const nextBtn = heroSlider.querySelector('#nextBtn');
-    const prevBtn = heroSlider.querySelector('#prevBtn');
-
-    let currentIndex = 0;
-    let slideInterval;
-
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.remove('active');
-        if (i === index) {
-          slide.classList.add('active');
-        }
-      });
-    }
-
-    function nextSlide() {
-      currentIndex = (currentIndex + 1) % slides.length;
-      showSlide(currentIndex);
-    }
-
-    function prevSlide() {
-      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-      showSlide(currentIndex);
-    }
-
-    function startSlideShow() {
-      // Change slide every 5 seconds (5000ms)
-      slideInterval = setInterval(nextSlide, 5000); 
-    }
-
-    function resetSlideShow() {
-      clearInterval(slideInterval);
-      startSlideShow();
-    }
-
-    nextBtn.addEventListener('click', () => {
-      nextSlide();
-      resetSlideShow();
-    });
-
-    prevBtn.addEventListener('click', () => {
-      prevSlide();
-      resetSlideShow();
-    });
-
-    // Initialize the slider
-    showSlide(currentIndex);
-    startSlideShow();
-}
-// --- END OF CODE TO PASTE ---
-
     // --- Global Elements ---
     const cartCountElement = document.getElementById('cart-count');
 
@@ -191,82 +134,30 @@ if (heroSlider) {
         `).join('');
     }
 
-    // // --- View Product (Simulated Product Page via Modal) ---
-     window.viewProduct = (id) => {
-      const product = getProductById(id);
+    // --- View Product (Simulated Product Page via Modal) ---
+    window.viewProduct = (id) => {
+        const product = getProductById(id);
         const modalHTML = `
-           <div id="product-detail-modal" class="modal" style="display:flex; align-items:center; justify-content:center;">
-                 <div class="modal-content" style="max-width: 800px; text-align: left; display: flex; flex-direction: column; gap: 20px; margin: 1rem;">
-                      <span class="close-button" onclick="document.getElementById('product-detail-modal').remove()">&times;</span>
-                     <div style="display: flex; gap: 30px; flex-direction: column; md:flex-direction: row;">
-                         <div style="flex:1;">
-                             <img src="${product.img}" style="width:100%; border-radius:5px;" onerror="this.onerror=null;this.src='https://placehold.co/600x600/f5f0e6/3d3d3d?text=${product.name}';">
-                         </div>
-                         <div style="flex:1;">
-                             <h2 style="font-family:var(--header-font); color:var(--primary-color)">${product.name}</h2>
-                             <p style="font-size: 1.5rem; color: var(--secondary-color); font-weight:700; margin-bottom:15px;">₹${product.price.toLocaleString('en-IN')}</p>
-                             <p style="margin-bottom:15px;">${product.description}</p>
+            <div id="product-detail-modal" class="modal" style="display:flex; align-items:center; justify-content:center;">
+                <div class="modal-content" style="max-width: 800px; text-align: left; display: flex; flex-direction: column; gap: 20px; margin: 1rem;">
+                     <span class="close-button" onclick="document.getElementById('product-detail-modal').remove()">&times;</span>
+                    <div style="display: flex; gap: 30px; flex-direction: column; md:flex-direction: row;">
+                        <div style="flex:1;">
+                            <img src="${product.img}" style="width:100%; border-radius:5px;" onerror="this.onerror=null;this.src='https://placehold.co/600x600/f5f0e6/3d3d3d?text=${product.name}';">
+                        </div>
+                        <div style="flex:1;">
+                            <h2 style="font-family:var(--header-font); color:var(--primary-color)">${product.name}</h2>
+                            <p style="font-size: 1.5rem; color: var(--secondary-color); font-weight:700; margin-bottom:15px;">₹${product.price.toLocaleString('en-IN')}</p>
+                            <p style="margin-bottom:15px;">${product.description}</p>
                             <p style="margin-bottom:20px;"><strong>Ingredients:</strong> ${product.ingredients}</p>
-                             <button class="cta-button" onclick="addToCart(${product.id}); document.getElementById('product-detail-modal').remove();">Add to Cart</button>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         `;
-    //     document.body.insertAdjacentHTML('beforeend', modalHTML);
-    // };
-
-    // NEW UPDATED CODE
-// window.viewProduct = (id) => {
-//     const product = getProductById(id);
-    // Notice the "style" attribute is removed from the first div. This lets our CSS do the work.
-    // const modalHTML = `
-    //     <div id="product-detail-modal" class="modal">
-    //         <div class="modal-content" style="max-width: 800px; text-align: left; display: flex; flex-direction: column; gap: 20px; margin: 1rem;">
-    //              <span class="close-button" onclick="document.getElementById('product-detail-modal').remove()">&times;</span>
-    //             <div style="display: flex; gap: 30px; flex-direction: column; md:flex-direction: row;">
-    //                 <div style="flex:1;">
-    //                     <img src="${product.img}" style="width:100%; border-radius:5px;" onerror="this.onerror=null;this.src='https://placehold.co/600x600/f5f0e6/3d3d3d?text=${product.name}';">
-    //                 </div>
-    //                 <div style="flex:1;">
-    //                     <h2 style="font-family:var(--header-font); color:var(--primary-color)">${product.name}</h2>
-    //                     <p style="font-size: 1.5rem; color: var(--secondary-color); font-weight:700; margin-bottom:15px;">₹${product.price.toLocaleString('en-IN')}</p>
-    //                     <p style="margin-bottom:15px;">${product.description}</p>
-    //                     <p style="margin-bottom:20px;"><strong>Ingredients:</strong> ${product.ingredients}</p>
-    //                     <button class="cta-button" onclick="addToCart(${product.id}); document.getElementById('product-detail-modal').remove();">Add to Cart</button>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </div>
-    // `;
-    // NEW UPDATED CODE
-// const modalHTML = `
-//     <div id="product-detail-modal" class="modal">
-//         <div class="modal-content">
-//              <span class="close-button" onclick="document.getElementById('product-detail-modal').remove()">&times;</span>
-            
-//             <div class="product-detail-layout">
-//                 <div class="product-detail-image">
-//                     <img src="${product.img}" alt="${product.name}" onerror="this.onerror=null;this.src='https://placehold.co/600x600/f5f0e6/3d3d3d?text=${product.name}';">
-//                 </div>
-//                 <div class="product-detail-info">
-//                     <h2>${product.name}</h2>
-//                     <p class="price">₹${product.price.toLocaleString('en-IN')}</p>
-//                     <p class="description">${product.description}</p>
-//                     <p class="ingredients"><strong>Ingredients:</strong> ${product.ingredients}</p>
-//                     <button class="cta-button" onclick="addToCart(${product.id}); document.getElementById('product-detail-modal').remove();">Add to Cart</button>
-//                 </div>
-//             </div>
-
-//         </div>
-//     </div>
-// `;
-    const modalElement = document.createElement('div');
-    modalElement.innerHTML = modalHTML;
-    document.body.appendChild(modalElement);
-    // We must manually set display to flex here to activate it
-    modalElement.querySelector('.modal').style.display = 'flex';
-};
+                            <button class="cta-button" onclick="addToCart(${product.id}); document.getElementById('product-detail-modal').remove();">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+    };
 
     // --- Add to Cart Logic ---
     window.addToCart = (productId, quantity = 1) => {
@@ -550,9 +441,47 @@ if (heroSlider) {
 
     // --- Initial Load ---
     updateCartCount();
+
+    // --- HERO SLIDER LOGIC ---
+    if (document.querySelector('.hero-slide')) {
+        let slideIndex = 0;
+        let slideTimer; // To hold the timer
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.dot');
+        
+        function moveSlide(n) {
+            // Set the slide index
+            slideIndex = n;
+
+            // Handle looping
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+            if (slideIndex < 1) {
+                slideIndex = slides.length;
+            }
+
+            // Hide all slides and deactivate all dots
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show the current slide and activate the current dot
+            slides[slideIndex - 1].classList.add('active');
+            dots[slideIndex - 1].classList.add('active');
+
+            // Reset the automatic timer
+            clearTimeout(slideTimer);
+            slideTimer = setTimeout(() => moveSlide(slideIndex + 1), 5000); // Move to the next slide after 5 seconds
+        }
+
+        // Add click event to dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                moveSlide(index + 1); // Move to the slide corresponding to the clicked dot
+            });
+        });
+
+        // Start the slider by showing the first slide
+        moveSlide(1);
+    }
 });
-
-
-
-
-
