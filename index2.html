@@ -45,13 +45,35 @@
     </header>
 
     <main>
-        <section class="hero">
+<!--         <section class="hero">
             <div class="hero-content">
                 <h1 class="animate-on-scroll">The Essence of Purity. The Soul of Luxury.</h1>
                 <p class="animate-on-scroll">Discover handcrafted ittar perfumes, distilled from nature's finest botanicals.</p>
                 <a href="#finder" class="cta-button animate-on-scroll">Find Your Signature Scent</a>
             </div>
-        </section>
+        </section> -->
+        <section class="hero-slider">
+  <div class="slider-wrapper">
+    <a href="javascript:void(0);" onclick="viewProduct(10)" class="slide active">
+      <img src="assets/images/product10.jpg" alt="Citadel - Saffron and Oudh Ittar">
+    </a>
+    <a href="javascript:void(0);" onclick="viewProduct(7)" class="slide">
+      <img src="assets/images/product7.jpg" alt="Roselune - Jasmine Ittar">
+    </a>
+    <a href="javascript:void(0);" onclick="viewProduct(1)" class="slide">
+      <img src="assets/images/product1.jpg" alt="Purple Haze - Lavender Ittar">
+    </a>
+    </div>
+
+  <div class="slider-overlay">
+    <h1 class="animate-on-scroll">The Essence of Purity. The Soul of Luxury.</h1>
+    <p class="animate-on-scroll">Discover handcrafted ittar perfumes, distilled from nature's finest botanicals.</p>
+    <a href="#finder" class="cta-button animate-on-scroll">Find Your Signature Scent</a>
+  </div>
+
+  <button class="slider-nav prev" id="prevBtn">&lt;</button>
+  <button class="slider-nav next" id="nextBtn">&gt;</button>
+</section>
 
         <section id="bestsellers" class="bestsellers-section container">
             <h2 class="section-title animate-on-scroll">Our Best Sellers</h2>
@@ -209,6 +231,7 @@
 </body>
 
 </html>
+
 
 
 
