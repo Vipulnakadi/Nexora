@@ -192,8 +192,8 @@ if (heroSlider) {
     }
 
     // // --- View Product (Simulated Product Page via Modal) ---
-    // window.viewProduct = (id) => {
-    //     const product = getProductById(id);
+     window.viewProduct = (id) => {
+      const product = getProductById(id);
     //     const modalHTML = `
     //         <div id="product-detail-modal" class="modal" style="display:flex; align-items:center; justify-content:center;">
     //             <div class="modal-content" style="max-width: 800px; text-align: left; display: flex; flex-direction: column; gap: 20px; margin: 1rem;">
@@ -217,8 +217,8 @@ if (heroSlider) {
     // };
 
     // NEW UPDATED CODE
-window.viewProduct = (id) => {
-    const product = getProductById(id);
+// window.viewProduct = (id) => {
+//     const product = getProductById(id);
     // Notice the "style" attribute is removed from the first div. This lets our CSS do the work.
     // const modalHTML = `
     //     <div id="product-detail-modal" class="modal">
@@ -551,6 +551,7 @@ const modalHTML = `
     // --- Initial Load ---
     updateCartCount();
 });
+
 
 
 
