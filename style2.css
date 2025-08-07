@@ -213,17 +213,53 @@ img {
 
 
 /* --- Hero Section --- */
-/* .hero {
+.hero {
     height: 90vh;
-    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1622618972866-352834a34a78?q=80&w=1973');
-    background-size: cover;
-    background-position: center;
+    position: relative;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: #fff;
     padding: 0 20px;
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+    z-index: 1;
+}
+
+.hero-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    z-index: 3;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 4;
 }
 
 .hero-content h1 {
@@ -238,109 +274,36 @@ img {
     font-size: 1.4rem;
     margin-bottom: 2rem;
     text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-} */
-/* --- Hero Slider Styles --- */
-.hero-slider {
-  position: relative;
-  width: 100%;
-  height: 90vh; /* Matches your old hero height */
-  overflow: hidden;
-  background-color: #333;
 }
 
-.slider-wrapper {
-  width: 100%;
-  height: 100%;
+.slider-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 5;
 }
 
-.slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  z-index: 1;
-  cursor: pointer;
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.slide.active {
-  opacity: 1;
-  z-index: 2;
+.dot:hover {
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* This is key for good-looking images */
-  filter: brightness(0.7); /* Slightly darken image to make text pop */
+.dot.active {
+    background-color: #fff;
 }
 
-.slider-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 3;
-  color: white;
-  text-align: center;
-  padding: 0 20px;
-  width: 90%;
-  max-width: 800px;
-}
 
-.slider-overlay h1 {
-    font-family: var(--header-font);
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-}
-
-.slider-overlay p {
-    font-size: 1.4rem;
-    margin-bottom: 2rem;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-}
-
-/* Make the button stand out on the image */
-.slider-overlay .cta-button {
-     border-color: white;
-}
-
-.slider-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 4;
-  background-color: rgba(0, 0, 0, 0.3);
-  color: white;
-  border: none;
-  font-size: 2rem;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.slider-nav:hover {
-  background-color: rgba(0, 0, 0, 0.6);
-}
-
-.slider-nav.prev {
-  left: 20px;
-}
-
-.slider-nav.next {
-  right: 20px;
-}
-
-@media (max-width: 768px) {
-    .slider-overlay h1 { font-size: 2.5rem; }
-    .slider-overlay p { font-size: 1.1rem; }
-    .slider-nav { padding: 5px 10px; font-size: 1.5rem; }
-}
 /* --- Product Grid --- */
 .product-section, .bestsellers-section {
     padding: 80px 0;
@@ -718,7 +681,7 @@ img {
 }
 
 /* --- Modals --- */
-/* .modal {
+.modal {
     display: none;
     position: fixed;
     z-index: 2000;
@@ -740,49 +703,7 @@ img {
     border-radius: 10px;
     position: relative;
     text-align: center;
-} */
-
-/* --- Modals --- */
-.modal {
-    display: none; /* Initially hidden */
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.6);
-    backdrop-filter: blur(5px);
-    
-    /* ADDED: Use Flexbox for perfect centering */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    /* ADDED: Padding to prevent content from touching screen edges */
-    padding: 20px; 
 }
-
- .modal-content {
-    background-color: #fefefe;
-    padding: 40px;
-    border-radius: 10px;
-    position: relative;
-    text-align: center;
-    width: 100%; /* Will be constrained by its parent's padding */
-    max-width: 500px; /* Your original max-width */
-
-    /* ADDED: Crucial for handling tall content */
-    max-height: 95vh; /* Never taller than 95% of the viewport height */
-    overflow-y: auto; /* Add a scrollbar INSIDE the modal if needed */
-
-    /* REMOVED the problematic margin rule */
-    /* margin: 15% auto; */ 
-} 
-
-/* --- Styles for the content INSIDE the product modal --- */
-
- 
 .close-button {
     color: #aaa;
     position: absolute;
@@ -975,7 +896,3 @@ img {
     border-radius: 5px;
     margin-bottom: 20px;
 }
-
-
-
-
