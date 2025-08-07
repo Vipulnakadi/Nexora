@@ -21,7 +21,6 @@
                 <img src="assets/images/logo.jpg" alt="NeXoRa Ittar Logo" class="logo">
             </a>
             <nav class="main-nav">
-                <!-- Hamburger Menu Button (visible on mobile) -->
                 <button class="hamburger" id="hamburger-button" aria-label="Toggle navigation menu">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
@@ -32,7 +31,7 @@
                     <li><a href="#products">Ittar Collection</a></li>
                     <li><a href="#about">About Us</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="index.html" class="back-link">Back to Nexora Industries</a></li>
+                    <li><a href="index.html" class="back-link">← Back to Nexora Industries</a></li>
                 </ul>
             </nav>
             <div class="header-actions">
@@ -45,35 +44,43 @@
     </header>
 
     <main>
-<!--         <section class="hero">
-            <div class="hero-content">
-                <h1 class="animate-on-scroll">The Essence of Purity. The Soul of Luxury.</h1>
-                <p class="animate-on-scroll">Discover handcrafted ittar perfumes, distilled from nature's finest botanicals.</p>
-                <a href="#finder" class="cta-button animate-on-scroll">Find Your Signature Scent</a>
+        <section class="hero">
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1622618972866-352834a34a78?q=80&w=1973');">
+                <div class="hero-content">
+                    <h1 class="animate-on-scroll">The Essence of Purity</h1>
+                    <p class="animate-on-scroll">Discover handcrafted ittar, distilled from nature's finest botanicals.</p>
+                    <a href="#finder" class="cta-button animate-on-scroll">Find Your Signature Scent</a>
+                </div>
             </div>
-        </section> -->
-        <section class="hero-slider">
-  <div class="slider-wrapper">
-    <a href="javascript:void(0);" onclick="viewProduct(10)" class="slide active">
-      <img src="assets/images/product10.jpg" alt="Citadel - Saffron and Oudh Ittar">
-    </a>
-    <a href="javascript:void(0);" onclick="viewProduct(7)" class="slide">
-      <img src="assets/images/product7.jpg" alt="Roselune - Jasmine Ittar">
-    </a>
-    <a href="javascript:void(0);" onclick="viewProduct(1)" class="slide">
-      <img src="assets/images/product1.jpg" alt="Purple Haze - Lavender Ittar">
-    </a>
-    </div>
-
-  <div class="slider-overlay">
-    <h1 class="animate-on-scroll">The Essence of Purity. The Soul of Luxury.</h1>
-    <p class="animate-on-scroll">Discover handcrafted ittar perfumes, distilled from nature's finest botanicals.</p>
-    <a href="#finder" class="cta-button animate-on-scroll">Find Your Signature Scent</a>
-  </div>
-
-  <button class="slider-nav prev" id="prevBtn">&lt;</button>
-  <button class="slider-nav next" id="nextBtn">&gt;</button>
-</section>
+            <div class="hero-slide" style="background-image: url('assets/images/product10.jpg');">
+                <div class="hero-content">
+                    <h1 class="animate-on-scroll">Citadel: The Epitome of Luxury</h1>
+                    <p class="animate-on-scroll">Precious saffron, Bulgarian rose, and a touch of rare Oudh.</p>
+                    <a href="#products" class="cta-button animate-on-scroll">Explore The Collection</a>
+                </div>
+            </div>
+            <div class="hero-slide" style="background-image: url('assets/images/product1.jpg');">
+                 <div class="hero-content">
+                    <h1 class="animate-on-scroll">Purple Haze: An Ode to Calm</h1>
+                    <p class="animate-on-scroll">Unwind with therapeutic Lavender, Sandalwood, and Saffron.</p>
+                    <a href="#products" class="cta-button animate-on-scroll">Explore The Collection</a>
+                </div>
+            </div>
+             <div class="hero-slide" style="background-image: url('assets/images/product4.jpg');">
+                 <div class="hero-content">
+                    <h1 class="animate-on-scroll">Ozevia: A Wave of Freshness</h1>
+                    <p class="animate-on-scroll">An invigorating, vibrant blend of crisp citrus and cool marine notes.</p>            
+                    <a href="#products" class="cta-button animate-on-scroll">Explore The Collection</a>
+                </div>
+            </div>
+        
+            <div class="slider-dots">
+                <span class="dot"></span> 
+                <span class="dot"></span> 
+                <span class="dot"></span> 
+                <span class="dot"></span> 
+            </div>
+        </section>
 
         <section id="bestsellers" class="bestsellers-section container">
             <h2 class="section-title animate-on-scroll">Our Best Sellers</h2>
@@ -153,7 +160,6 @@
         <div class="footer__container">
             <div class="footer__content">
 
-                <!-- Left Section: Copyright and Legal Links -->
                 <div class="footer__left">
                     <p>&copy; 2025 NeXoRa Ittar. All rights reserved. <span id="admin-trigger" title="Admin Panel">◆</span></p>
                     <nav class="footer__legal-links" aria-label="Legal">
@@ -162,7 +168,6 @@
                     </nav>
                 </div>
 
-                <!-- Right Section: Social Media Links -->
                 <div class="footer__right">
                     <div class="footer__socials" aria-label="Social media">
 
@@ -230,8 +235,4 @@
     <script src="admin.js"></script>
 </body>
 
-</html>
-
-
-
-
+</html>s
