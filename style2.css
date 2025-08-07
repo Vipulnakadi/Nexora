@@ -718,7 +718,7 @@ img {
 }
 
 /* --- Modals --- */
-.modal {
+/* .modal {
     display: none;
     position: fixed;
     z-index: 2000;
@@ -740,7 +740,46 @@ img {
     border-radius: 10px;
     position: relative;
     text-align: center;
+} */
+
+/* --- Modals --- */
+.modal {
+    display: none; /* Initially hidden */
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+    
+    /* ADDED: Use Flexbox for perfect centering */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* ADDED: Padding to prevent content from touching screen edges */
+    padding: 20px; 
 }
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 40px;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    width: 100%; /* Will be constrained by its parent's padding */
+    max-width: 500px; /* Your original max-width */
+
+    /* ADDED: Crucial for handling tall content */
+    max-height: 95vh; /* Never taller than 95% of the viewport height */
+    overflow-y: auto; /* Add a scrollbar INSIDE the modal if needed */
+
+    /* REMOVED the problematic margin rule */
+    /* margin: 15% auto; */ 
+}
+
 .close-button {
     color: #aaa;
     position: absolute;
@@ -933,4 +972,5 @@ img {
     border-radius: 5px;
     margin-bottom: 20px;
 }
+
 
