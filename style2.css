@@ -763,7 +763,7 @@ img {
     padding: 20px; 
 }
 
-/* .modal-content {
+ .modal-content {
     background-color: #fefefe;
     padding: 40px;
     border-radius: 10px;
@@ -778,43 +778,11 @@ img {
 
     /* REMOVED the problematic margin rule */
     /* margin: 15% auto; */ 
-} */
+} 
 
 /* --- Styles for the content INSIDE the product modal --- */
-.product-detail-layout {
-    display: flex;
-    flex-direction: column; /* Stacks image and text on top of each other by default */
-    gap: 20px;
-}
 
-.product-detail-image img {
-    width: 100%;
-    border-radius: 5px;
-}
-
-.product-detail-info h2 {
-    font-family: var(--header-font);
-    color: var(--primary-color);
-    margin-bottom: 5px;
-}
-
-.product-detail-info .price {
-    font-size: 1.5rem;
-    color: var(--secondary-color);
-    font-weight: 700;
-    margin-bottom: 15px;
-}
-
-.product-detail-info .description {
-    margin-bottom: 15px;
-}
-
-.product-detail-info .ingredients {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 20px;
-}
-
+ 
 .close-button {
     color: #aaa;
     position: absolute;
@@ -1007,6 +975,7 @@ img {
     border-radius: 5px;
     margin-bottom: 20px;
 }
+
 
 
 
