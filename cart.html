@@ -77,9 +77,13 @@
 
     <div id="order-success-modal" class="modal">
         <div class="modal-content">
-            <h2>Thank You!</h2>
-            <p>Your order has been placed successfully.</p>
-            
+            <span class="close-button" onclick="window.location.href='index2.html'">&times;</span>
+            <div id="order-confirmation-content">
+                <h2>Thank You!</h2>
+                <p>Your order has been placed successfully.</p>
+                <div id="order-details-summary"></div>
+                <p>Your order will be delivered within **36 hours**.</p>
+            </div>
             <a href="index2.html" class="cta-button">Continue Shopping</a>
         </div>
     </div>
