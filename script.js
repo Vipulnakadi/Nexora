@@ -24,12 +24,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Active Nav Link on Scroll ---
     const sections = document.querySelectorAll("section[id]");
     const navLi = document.querySelectorAll(".main-nav ul li a");
+    const headerHeight = document.querySelector('.main-header').offsetHeight;
 
     window.addEventListener("scroll", () => {
         let current = "";
         sections.forEach((section) => {
             const sectionTop = section.offsetTop;
-            if (pageYOffset >= sectionTop - 75) { // 75 is header height
+            if (pageYOffset >= sectionTop - headerHeight - 10) { // Offset for header height
                 current = section.getAttribute("id");
             }
         });
@@ -45,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Hide Header on Scroll Down ---
     let lastScrollTop = 0;
     const header = document.querySelector('.main-header');
-    const headerHeight = header.offsetHeight;
+    
 
     window.addEventListener('scroll', function() {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -60,5 +61,75 @@ document.addEventListener('DOMContentLoaded', function() {
         
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
     });
+
+    // --- Contact Form Logic for index.html ---
+    const contactForm = document.getElementById('contact-form');
+    const modal = document.getElementById('contact-success-modal');
+    const closeModalButton = modal ? modal.querySelector('.close-button') : null;
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // In a real application, you would send this data to a server here.
+            // For now, we will just show a success modal.
+            
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+            console.log('Contact form submitted:', data); // Log data for demonstration
+
+            if (modal) {
+                modal.style.display = 'flex';
+            }
+            
+            // Clear the form
+            contactForm.reset();
+        });
+    }
+
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+
+    // --- User Profile & Login/Logout Functionality ---
+    const userProfileLink = document.getElementById('user-profile-link');
+    const user = JSON.parse(localStorage.getItem('nexoraUser'));
+
+    if (userProfileLink && user) {
+        userProfileLink.innerHTML = `<a href="#" class="nav-link">Hello, ${user.name}</a>`;
+        userProfileLink.onclick = () => {
+            showUserModal();
+            return false;
+        };
+    } else if (userProfileLink) {
+        userProfileLink.innerHTML = `<a href="login.html" class="nav-link">Login</a>`;
+    }
+
+    function showUserModal() {
+        const modalHTML = `
+            <div id="user-info-modal" class="modal" style="display:flex; align-items:center; justify-content:center;">
+                <div class="modal-content" style="max-width: 400px; text-align: left; padding: 30px;">
+                    <span class="close-button" onclick="document.getElementById('user-info-modal').remove()">&times;</span>
+                    <h2 style="font-family:var(--header-font); color:var(--primary-color); text-align:center;">User Profile</h2>
+                    <p style="margin-bottom:10px;"><strong>Name:</strong> ${user.name}</p>
+                    <p style="margin-bottom:20px;"><strong>Email:</strong> ${user.email}</p>
+                    <button id="logout-btn" class="cta-button" style="width:100%;">Logout</button>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('nexoraUser');
+            window.location.reload();
+        });
+    }
 
 });
