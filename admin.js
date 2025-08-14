@@ -15,19 +15,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Event Listeners ---
-    adminTrigger.addEventListener('click', () => {
-        adminModal.style.display = 'block';
-    });
+    if(adminTrigger) {
+        adminTrigger.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevents the link from navigating
+            adminModal.style.display = 'flex';
+        });
+    }
 
-    closeModalButton.addEventListener('click', () => {
-        adminModal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === adminModal) {
+    if(closeModalButton) {
+        closeModalButton.addEventListener('click', () => {
             adminModal.style.display = 'none';
-        }
-    });
+        });
+    }
+
+    if(adminModal) {
+        window.addEventListener('click', (event) => {
+            if (event.target === adminModal) {
+                adminModal.style.display = 'none';
+            }
+        });
+    }
 
     adminLoginForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -87,7 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function downloadOrdersAsExcel() {
         const orders = JSON.parse(localStorage.getItem('nexoraOrders')) || [];
         if (orders.length === 0) {
-            alert("No orders to download.");
+            // Replaced alert with a custom message box or similar UI
+            const loginError = document.getElementById('login-error');
+            if (loginError) {
+                loginError.textContent = "No orders to download.";
+                setTimeout(() => loginError.textContent = '', 3000); // Clear after 3 seconds
+            }
             return;
         }
 
