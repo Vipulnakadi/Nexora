@@ -8,6 +8,82 @@ window.onload = function() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- User Profile & Login/Logout Functionality ---
+    const userProfileLink = document.getElementById('user-profile-link');
+    const userProfileMenu = document.getElementById('user-profile-menu');
+    let user = JSON.parse(localStorage.getItem('nexoraUser')) || null;
+
+    const updateUserProfile = () => {
+        if (user && userProfileLink) {
+            // Update the link in index.html
+            userProfileLink.innerHTML = `<a href="#" class="nav-link">${user.name}</a>`;
+            userProfileLink.onclick = () => {
+                showUserModal();
+                return false; // Prevent navigation
+            };
+        } else if (userProfileLink) {
+            // Revert the link to login
+            userProfileLink.innerHTML = `<a href="login.html" class="nav-link login-link">Login</a>`;
+            userProfileLink.onclick = null;
+        }
+
+        if (user && userProfileMenu) {
+            // Update the menu in index2.html
+            userProfileMenu.innerHTML = `
+                <a href="#" class="user-link">${user.name}</a>
+                <div class="user-details-dropdown">
+                    <p><strong>${user.name}</strong></p>
+                    <p>${user.email}</p>
+                    <button id="logout-button-ittar">Logout</button>
+                </div>
+            `;
+            // Add event listener for the dropdown toggle
+            userProfileMenu.querySelector('.user-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                userProfileMenu.classList.toggle('active');
+            });
+            // Add logout functionality
+            document.getElementById('logout-button-ittar').addEventListener('click', () => {
+                localStorage.removeItem('nexoraUser');
+                window.location.reload();
+            });
+        }
+    };
+    
+    // Call on page load
+    updateUserProfile();
+
+    const showUserModal = () => {
+        // A dummy modal to show user info and a logout button
+        const modalHTML = `
+            <div id="user-info-modal" class="modal" style="display:flex; align-items:center; justify-content:center;">
+                <div class="modal-content" style="max-width: 400px; text-align: left; padding: 30px;">
+                    <span class="close-button" onclick="document.getElementById('user-info-modal').remove()">&times;</span>
+                    <h2 style="font-family:var(--header-font); color:var(--primary-color); text-align:center;">User Profile</h2>
+                    <p style="margin-bottom:10px;"><strong>Name:</strong> ${user.name}</p>
+                    <p style="margin-bottom:20px;"><strong>Email:</strong> ${user.email}</p>
+                    <button id="logout-btn" class="cta-button" style="width:100%;">Logout</button>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('nexoraUser');
+            window.location.reload();
+        });
+    };
+
+    // Handle login form submission
+    if (document.getElementById('customer-login-form')) {
+        document.getElementById('customer-login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('login-name').value;
+            const email = document.getElementById('login-email').value;
+            localStorage.setItem('nexoraUser', JSON.stringify({ name, email }));
+            window.location.href = 'index.html'; // Redirect to home page
+        });
+    }
+
     // --- Hamburger Menu Functionality ---
     const hamburgerButton = document.getElementById('hamburger-button');
     const navLinks = document.getElementById('nav-links');
@@ -85,6 +161,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (document.getElementById('checkout-form')) {
         setupCheckoutForm();
+    }
+    if (document.getElementById('contact-form')) {
+        setupContactForm();
     }
 
     // --- Render All Products ---
@@ -283,6 +362,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         lastScrollY = window.scrollY;
     });
+    
+    // --- Contact Form Logic for index.html ---
+    function setupContactForm() {
+        const contactForm = document.getElementById('contact-form');
+        const modal = document.getElementById('contact-success-modal');
+        const closeModalButton = modal.querySelector('.close-button');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // In a real application, you would send this data to a server here.
+            // For now, we will just show a success modal.
+            
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+            console.log('Contact form submitted:', data);
+
+            // Show success modal
+            modal.style.display = 'flex';
+            
+            // Clear the form
+            contactForm.reset();
+        });
+
+        closeModalButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
 
     // --- CART PAGE LOGIC ---
     function renderCart() {
@@ -291,6 +404,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const checkoutSection = document.getElementById('checkout-section');
 
         if (!cartItemsContainer || !checkoutSection) return;
+
+        // Pre-fill user details if logged in
+        if (user) {
+            document.getElementById('customer-name').value = user.name;
+            document.getElementById('customer-email').value = user.email;
+        }
 
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = `
@@ -380,10 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupCheckoutForm() {
         const checkoutForm = document.getElementById('checkout-form');
         const modal = document.getElementById('order-success-modal');
-        const customerNameInput = document.getElementById('customer-name');
-        const customerEmailInput = document.getElementById('customer-email');
-        const customerPhoneInput = document.getElementById('customer-phone');
-        const customerAddressInput = document.getElementById('customer-address');
+        const orderDetailsSummary = document.getElementById('order-details-summary');
 
         if (!checkoutForm) return;
 
@@ -394,10 +510,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const order = {
                 id: Date.now(),
                 customer: {
-                    name: customerNameInput.value,
-                    email: customerEmailInput.value,
-                    phone: customerPhoneInput.value,
-                    address: customerAddressInput.value,
+                    name: document.getElementById('customer-name').value,
+                    email: document.getElementById('customer-email').value,
+                    phone: document.getElementById('customer-phone').value,
+                    address: document.getElementById('customer-address').value,
                 },
                 items: cart.map(item => {
                     const product = getProductById(item.id);
@@ -413,20 +529,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             saveOrder(order);
 
-            // // Prepare email draft
-            // const subject = encodeURIComponent('Order Confirmation from NeXoRa Ittar');
-            // let body = `Dear ${order.customer.name},\n\nThank you for your order! Here are the details:\n\n`;
-            // order.items.forEach(item => {
-            //     body += `${item.name} (x${item.quantity}) - ₹${(item.price * item.quantity).toLocaleString('en-IN')}\n`;
-            // });
-            // body += `\nTotal: ₹${order.total.toLocaleString('en-IN')}\n\n`;
-            // body += `We will contact you shortly to confirm your order and shipping details.\n\n`;
-            // body += `Best regards,\nNeXoRa Ittar Team`;
-
-            // const mailtoLink = `mailto:${order.customer.email}?subject=${subject}&body=${encodeURIComponent(body)}`;
-
-            // // Open email client with the pre-filled draft
-            // window.open(mailtoLink, '_blank');
+            // Populate the order confirmation modal
+            let orderSummaryHtml = '<h3>Order Summary</h3><ul>';
+            order.items.forEach(item => {
+                orderSummaryHtml += `<li>${item.name} (x${item.quantity}) - ₹${(item.price * item.quantity).toLocaleString('en-IN')}</li>`;
+            });
+            orderSummaryHtml += `</ul><p><strong>Total: ₹${order.total.toLocaleString('en-IN')}</strong></p>`;
+            orderDetailsSummary.innerHTML = orderSummaryHtml;
+            
+            // In a real application, a server would now send this email to the customer.
+            // Email content would be:
+            // "Dear ${order.customer.name}, thank you for your order! Your order for [list of products] has been placed and will be delivered within 36 hours. Total: ₹${order.total}"
 
             // Clear the cart and local storage
             cart = [];
