@@ -130,6 +130,40 @@ document.addEventListener('DOMContentLoaded', () => {
         orders.push(order);
         localStorage.setItem('nexoraOrders', JSON.stringify(orders));
     };
+    
+
+    // *** Paste the new function here ***
+    function sendOrderEmail(order) {
+        const companyEmail = 'comp.nexora@gmail.com';
+        const subject = encodeURIComponent(`New Order Placed by ${order.customer.name}`);
+        
+        let productsList = '';
+        order.items.forEach(item => {
+            productsList += ` - ${item.name} (Quantity: ${item.quantity}, Price: ₹${(item.price * item.quantity).toLocaleString('en-IN')})\n`;
+        });
+
+        const body = encodeURIComponent(`
+An order has been placed by a customer.
+
+---
+Customer Details:
+Name: ${order.customer.name}
+Email: ${order.customer.email}
+Phone: ${order.customer.phone}
+Address: ${order.customer.address}
+
+---
+Order Details:
+Order ID: ${order.id}
+Products:
+${productsList}
+Final Price: ₹${order.total.toLocaleString('en-IN')}
+`);
+        
+        return `mailto:${companyEmail}?subject=${subject}&body=${body}`;
+    }
+    // *** End of the new function ***
+    
 
     // --- Global Elements ---
     const cartCountElement = document.getElementById('cart-count');
@@ -598,3 +632,4 @@ document.addEventListener('DOMContentLoaded', () => {
         moveSlide(1);
     }
 });
+
