@@ -529,11 +529,14 @@ Final Price: ₹${order.total.toLocaleString('en-IN')}
         renderCart(); // Re-render the cart
     }
 
+    // ... (in main.js)
+
     // --- CHECKOUT FORM LOGIC ---
     function setupCheckoutForm() {
         const checkoutForm = document.getElementById('checkout-form');
         const modal = document.getElementById('order-success-modal');
         const orderDetailsSummary = document.getElementById('order-details-summary');
+        const orderConfirmationContent = document.getElementById('order-confirmation-content');
 
         if (!checkoutForm) return;
 
@@ -571,9 +574,19 @@ Final Price: ₹${order.total.toLocaleString('en-IN')}
             orderSummaryHtml += `</ul><p><strong>Total: ₹${order.total.toLocaleString('en-IN')}</strong></p>`;
             orderDetailsSummary.innerHTML = orderSummaryHtml;
             
-            // In a real application, a server would now send this email to the customer.
-            // Email content would be:
-            // "Dear ${order.customer.name}, thank you for your order! Your order for [list of products] has been placed and will be delivered within 36 hours. Total: ₹${order.total}"
+            // Call the modified function to get the mailto URL
+            const mailtoLink = sendOrderEmail(order);
+
+            // Create a new button to trigger the email
+            const emailButton = document.createElement('a');
+            emailButton.href = mailtoLink;
+            emailButton.className = 'cta-button';
+            emailButton.textContent = 'Send Order Confirmation';
+            emailButton.style.marginTop = '20px';
+
+            // Append the new button to the modal content
+            // Assuming the modal content is a container that holds the success message
+            orderConfirmationContent.appendChild(emailButton);
 
             // Clear the cart and local storage
             cart = [];
@@ -584,6 +597,8 @@ Final Price: ₹${order.total.toLocaleString('en-IN')}
             modal.style.display = 'flex';
         });
     }
+
+// ...
 
 
     // --- Initial Load ---
@@ -632,4 +647,5 @@ Final Price: ₹${order.total.toLocaleString('en-IN')}
         moveSlide(1);
     }
 });
+
 
